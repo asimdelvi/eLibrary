@@ -1,0 +1,8 @@
+<% layout('base') %>
+<h1>Add New book</h1>
+<form action="/books" method="post">
+  <input type="text" name="book[title]" placeholder="Title" />
+  <input type="text" name="book[imageURL]" placeholder="Image" />
+  <input type="text" name="book[pdfURL]" placeholder="Book" />
+  <button type="submit">Add</button>
+</form>
