@@ -1,7 +1,0 @@
-<%- layout('base') %>
-<h1>All Books</h1>
-<% for (const book of allBooks) {%>
-<a href="/books/<%= book.id %> ">
-  <h2><%= book.title %></h2>
-</a>
-<% } %>

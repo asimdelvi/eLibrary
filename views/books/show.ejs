@@ -1,9 +1,0 @@
-<%- layout('base') %>
-<h2><%= book.title %></h2>
-<p><%= book.imageURL %></p>
-<p><%= book.pdfURL %></p>
-
-<a href="/books/<%= book.id %>/edit">Edit</a>
-<form action="/books/<%= book.id %>?_method=DELETE" method="post">
-  <button type="submit">Remove Book</button>
-</form>
