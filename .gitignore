@@ -1,2 +1,4 @@
 myNotes.txt
 node_modules/*
+uploads/*
+.env

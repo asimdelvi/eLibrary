@@ -14,7 +14,10 @@
   "author": "asimdelvi",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
-    "mongoose": "^6.5.0"
+    "express-fileupload": "^1.4.0",
+    "mongoose": "^6.5.0",
+    "uuid": "^9.0.0"
   }
 }
