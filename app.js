@@ -37,8 +37,8 @@ app.get("/api/books", async (req, res) => {
 
 // * Create | /api/books | POST | Create new book on server
 app.post("/api/books", async (req, res) => {
+  // TODO: Can we use mongoose instead (pre)
   const path = __dirname + `/uploads/${uuidv4()}/`;
-
   const { book, image } = req.files;
   const { title } = req.body;
   const pdfURL = path + book.name;
