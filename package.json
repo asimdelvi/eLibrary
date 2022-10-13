@@ -14,6 +14,7 @@
   "author": "asimdelvi",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "express-fileupload": "^1.4.0",

@@ -16,4 +16,5 @@ const bookSchema = new Schema({
 bookSchema.pre("save", function () {
   console.log(this);
 });
+
 export const Book = mongoose.model("Book", bookSchema);
