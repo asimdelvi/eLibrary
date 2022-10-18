@@ -9,6 +9,7 @@ import express from "express";
 import mongoose from "mongoose";
 import fileUpload from "express-fileupload";
 import { router as booksRouter } from "./routes/books.js";
+import { router as userRouter } from "./routes/users.js";
 
 mongoose.connect(process.env.DB_URL).then(() => console.log("DB connected"));
 
@@ -21,6 +22,7 @@ app.use(fileUpload());
 
 // * Routes
 app.use("/api/books/", booksRouter);
+app.use("/api/users/", userRouter);
 
 app.listen(3090, () => {
   console.log("Listening on port 3090");
