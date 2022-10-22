@@ -5,15 +5,15 @@ import {
   updateBook,
   deleteBook,
 } from "../controllers/books.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { isLoggedIn, isAuthor } from "../middleware/authMiddleware.js";
 import express from "express";
 
 export const router = express.Router();
 
-router.route("/").get(index).post(protect, createBook);
+router.route("/").get(index).post(isLoggedIn, createBook);
 
 router
   .route("/:id")
   .get(showBook)
-  .patch(protect, updateBook)
-  .delete(protect, deleteBook);
+  .patch(isLoggedIn, isAuthor, updateBook)
+  .delete(isLoggedIn, isAuthor, deleteBook);
