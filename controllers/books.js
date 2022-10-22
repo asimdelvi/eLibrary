@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 
 // * Index | /api/books | GET | Display all books
 export const index = async (req, res) => {
-  const allBooks = await Book.find({});
+  const allBooks = await Book.find({}).populate("createdBy", "username");
   res.status(200).json(allBooks);
 };
 
@@ -30,13 +30,21 @@ export const createBook = async (req, res) => {
   fs.mkdirSync(path);
   book.mv(pdfURL);
   book.mv(imageURL);
-  const createdBook = await Book.create({ title, pdfURL, imageURL });
+  const createdBook = await Book.create({
+    title,
+    pdfURL,
+    imageURL,
+    createdBy: req.user.id,
+  });
   res.status(200).json(createdBook);
 };
 
 // * Show | /api/books/:id | GET | Details of one specific book
 export const showBook = async (req, res) => {
-  const book = await Book.findById(req.params.id);
+  const book = await Book.findById(req.params.id).populate(
+    "createdBy",
+    "username"
+  );
   res.status(200).json(book);
 };
 
