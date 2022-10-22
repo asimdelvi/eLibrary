@@ -1,5 +1,6 @@
 import { User } from "../models/users.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -17,7 +18,7 @@ export const registerUser = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 12);
   const user = await User.create({ username, email, password: hashedPassword });
 
-  res.status(200).json(user);
+  res.status(200).json({ user, token: generateToken(user.id) });
 };
 
 export const loginUser = async (req, res) => {
@@ -26,10 +27,20 @@ export const loginUser = async (req, res) => {
   const comparedPassword = bcrypt.compareSync(password, user.password);
 
   if (user && comparedPassword) {
-    res.status(200).json({ user, password });
+    res.status(200).json({ user, token: generateToken(user.id) });
   }
 };
 
-export const logoutUser = async (req, res) => {
-  res.status(200).json({ status: "logout" });
+// No need of logout in backend,
+// we just have to remove the auth header.
+// export const logoutUser = async (req, res) => {
+//   res.status(200).json({ status: "logout" });
+// };
+
+export const getUser = (req, res) => {
+  res.status(200).json({ token: req.headers });
+};
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "24h" });
 };
