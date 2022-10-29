@@ -10,6 +10,9 @@ import mongoose from "mongoose";
 import fileUpload from "express-fileupload";
 import { router as booksRouter } from "./routes/books.js";
 import { router as userRouter } from "./routes/users.js";
+import AppError, {
+  errorHandler,
+} from "../eLibrary/middleware/errorMiddleware.js";
 
 mongoose.connect(process.env.DB_URL).then(() => console.log("DB connected"));
 
@@ -25,6 +28,12 @@ app.use("/api/books/", booksRouter);
 app.use("/api/users/", userRouter);
 
 // TODO: custom error handler, cors, body-parser.
+
+// * Error Middleware
+app.all("*", (req, res, next) => {
+  next(new AppError("Page not found", 404));
+});
+app.use(errorHandler);
 
 app.listen(3090, () => {
   console.log("Listening on port 3090");

@@ -3,6 +3,7 @@ import { dirname } from "path";
 import { v4 as uuidv4 } from "uuid";
 import { Book } from "../models/books.js";
 import fs from "fs";
+import AppError from "../middleware/errorMiddleware.js";
 
 // ES6 does not support __dirname
 // Converts present file URL to path
@@ -26,7 +27,6 @@ export const createBook = async (req, res) => {
   const pdfURL = path + book.name;
   const imageURL = path + image.name;
 
-  // TODO: does this creates upload folder too, if its not exist.
   fs.mkdirSync(path);
   book.mv(pdfURL);
   book.mv(imageURL);
@@ -52,7 +52,9 @@ export const showBook = async (req, res) => {
 // TODO: optimize the code and document it.
 // TODO: calling findById so many times
 export const updateBook = async (req, res) => {
-  let { pdfURL, imageURL } = await Book.findById(req.params.id);
+  let book = await Book.findById(req.params.id);
+  if (!book) throw new AppError("Book not found", 400);
+  let { pdfURL, imageURL } = book;
   const filesToUpdate = req.files;
   const { title } = req.body;
   if (filesToUpdate) {
@@ -82,7 +84,9 @@ export const updateBook = async (req, res) => {
 
 // * Destroy | /api/books/:id | DELETE | Deletes specific item on server
 export const deleteBook = async (req, res) => {
-  const { pdfURL } = await Book.findByIdAndDelete(req.params.id);
+  const book = await Book.findById(req.params.id);
+  if (!book) throw new AppError("Book not found", 400);
+  const { pdfURL } = book;
   fs.rmSync(dirname(pdfURL), { recursive: true, force: true });
   await Book.findByIdAndRemove(req.params.id);
   res.status(200).json({ id: req.params.id });
