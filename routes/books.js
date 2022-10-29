@@ -5,15 +5,19 @@ import {
   updateBook,
   deleteBook,
 } from "../controllers/books.js";
+import { catchAsync } from "../middleware/errorMiddleware.js";
 import { isLoggedIn, isAuthor } from "../middleware/authMiddleware.js";
 import express from "express";
 
 export const router = express.Router();
 
-router.route("/").get(index).post(isLoggedIn, createBook);
+router
+  .route("/")
+  .get(index)
+  .post(catchAsync(isLoggedIn), catchAsync(createBook));
 
 router
   .route("/:id")
-  .get(showBook)
-  .patch(isLoggedIn, isAuthor, updateBook)
-  .delete(isLoggedIn, isAuthor, deleteBook);
+  .get(catchAsync(showBook))
+  .patch(catchAsync(isLoggedIn), catchAsync(isAuthor), catchAsync(updateBook))
+  .delete(catchAsync(isLoggedIn), catchAsync(isAuthor), catchAsync(deleteBook));

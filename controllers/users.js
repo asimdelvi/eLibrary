@@ -1,16 +1,21 @@
 import { User } from "../models/users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import AppError from "../middleware/errorMiddleware.js";
 
 export const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
-  const userExist = await User.findOne({ email });
+  const emailExist = await User.findOne({ email });
+  const userExist = await User.findOne({ username });
 
-  // TODO: add validation (password type, username type and all), async error handler
+  // TODO: add validation (password type, username type and all)
   // ! is it possible by validator to validate uniqueness
+  if (emailExist) {
+    throw new AppError("You have already been registered", 400);
+  }
+
   if (userExist) {
-    res.status(400);
-    throw new Error("User already exist");
+    throw new AppError("Username already exist", 400);
   }
 
   // pre
@@ -24,11 +29,10 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  const comparedPassword = bcrypt.compareSync(password, user.password);
-
-  if (user && comparedPassword) {
-    res.status(200).json({ user, token: generateToken(user.id) });
+  if (!(user && bcrypt.compareSync(password, user.password))) {
+    throw new AppError("Incorrect email or password");
   }
+  res.status(200).json({ user, token: generateToken(user.id) });
 };
 
 // No need of logout in backend,
