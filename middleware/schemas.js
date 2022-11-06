@@ -1,14 +1,28 @@
 import Joi from "joi";
 
-export const bookSchema = Joi.object({
-  body: Joi.object({
-    title: Joi.string().min(5).max(200).required(),
+export const bookSchema = {
+  create: Joi.object({
+    body: Joi.object({
+      title: Joi.string().min(5).max(200).required(),
+    }).required(),
+    files: Joi.object({
+      book: Joi.object().required(),
+      image: Joi.object().required(),
+    }).required(),
   }).required(),
-  files: Joi.object({
-    book: Joi.object().required(),
-    image: Joi.object().required(),
-  }).required(),
-}).required();
+
+  update: Joi.object({
+    body: Joi.object({
+      title: Joi.string().min(5).max(200),
+    }),
+    files: Joi.object({
+      book: Joi.object(),
+      image: Joi.object(),
+    }).allow(null),
+  }).or("body.title", "files.book", "files.image"),
+};
+
+//
 
 // Create an object for different request.
 export const userSchema = {

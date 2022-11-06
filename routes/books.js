@@ -18,7 +18,7 @@ router
   .get(index)
   .post(
     catchAsync(isLoggedIn),
-    validateBook(bookSchema),
+    validateBook(bookSchema.create),
     catchAsync(createBook)
   );
 
@@ -28,7 +28,7 @@ router
   .patch(
     catchAsync(isLoggedIn),
     catchAsync(isAuthor),
-    validateBook(bookSchema),
+    validateBook(bookSchema.update),
     catchAsync(updateBook)
   )
   .delete(catchAsync(isLoggedIn), catchAsync(isAuthor), catchAsync(deleteBook));
