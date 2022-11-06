@@ -10,9 +10,7 @@ import mongoose from "mongoose";
 import fileUpload from "express-fileupload";
 import { router as booksRouter } from "./routes/books.js";
 import { router as userRouter } from "./routes/users.js";
-import AppError, {
-  errorHandler,
-} from "../eLibrary/middleware/errorMiddleware.js";
+import AppError, { errorHandler } from "./middleware/errorMiddleware.js";
 
 mongoose.connect(process.env.DB_URL).then(() => console.log("DB connected"));
 
