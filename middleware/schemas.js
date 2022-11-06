@@ -18,7 +18,8 @@ export const bookSchema = {
     files: Joi.object({
       book: Joi.object(),
       image: Joi.object(),
-    }).allow(null),
+    }).allow(null), // null is allowed if theres no object
+    // title or book or image - any one should be included
   }).or("body.title", "files.book", "files.image"),
 };
 

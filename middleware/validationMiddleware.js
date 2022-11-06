@@ -2,7 +2,6 @@ import AppError from "./errorMiddleware.js";
 
 export const validateBook = (schema) => {
   return (req, res, next) => {
-    console.log({ body: req.body, files: req.files });
     const { error } = schema.validate({ body: req.body, files: req.files });
     if (error) {
       const message = error.details.map((data) => data.message).join(",");
