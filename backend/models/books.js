@@ -6,7 +6,6 @@ const bookSchema = new Schema({
     type: String,
     required: true,
   },
-  imageURL: String,
   pdfURL: {
     type: String,
     required: true,

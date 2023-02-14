@@ -22,18 +22,15 @@ export const createBook = async (req, res) => {
   // TODO: Can we use mongoose instead (pre)
   const path = __dirname + `/../uploads/${uuidv4()}/`;
 
-  const { book, image } = req.files;
+  const { book} = req.files;
   const { title } = req.body;
   const pdfURL = path + book.name;
-  const imageURL = path + image.name;
 
   fs.mkdirSync(path);
   book.mv(pdfURL);
-  book.mv(imageURL);
   const createdBook = await Book.create({
     title,
     pdfURL,
-    imageURL,
     createdBy: req.user.id,
   });
   res.status(200).json(createdBook);
@@ -54,7 +51,7 @@ export const showBook = async (req, res) => {
 export const updateBook = async (req, res) => {
   let book = await Book.findById(req.params.id);
   if (!book) throw new AppError("Book not found", 400);
-  let { pdfURL, imageURL } = book;
+  let { pdfURL} = book;
   const filesToUpdate = req.files;
   const { title } = req.body;
   if (filesToUpdate) {
@@ -64,17 +61,10 @@ export const updateBook = async (req, res) => {
       fs.unlinkSync(pdfURL);
       pdfURL = dirname(pdfURL) + "/" + book.name;
     }
-    if (filesToUpdate.image) {
-      const image = filesToUpdate.image;
-      image.mv(dirname(imageURL) + "/" + image.name);
-      fs.unlinkSync(imageURL);
-      imageURL = dirname(imageURL) + "/" + image.name;
-    }
   }
 
   await Book.findByIdAndUpdate(req.params.id, {
     pdfURL,
-    imageURL,
     title,
   });
   const updatedBook = await Book.findById(req.params.id);
