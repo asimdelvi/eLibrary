@@ -9,15 +9,19 @@ const register = async (userData) => {
     localStorage.setItem("user", JSON.stringify(res.data));
     return res.data;
   }
-  // } catch (error) {
-  //   const message = error.response.data.message;
-  //   console.log(message);
-  //   return message;
-  // }
+};
+
+const login = async (userData) => {
+  const res = await axios.post(`${BASE_URL}/login`, userData);
+  if (res.data) {
+    localStorage.setItem("user", JSON.stringify(res.data));
+    return res.data;
+  }
 };
 
 const authAPI = {
   register,
+  login,
 };
 
 export default authAPI;
