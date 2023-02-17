@@ -14,7 +14,6 @@ export const validateBook = (schema) => {
 // function which accepts the schema  and return a middleware
 export const validateUser = (schema) => {
   return (req, res, next) => {
-    console.log(req.body);
     const { error } = schema.validate(req.body);
     if (error) {
       const message = error.details.map((data) => data.message).join(",");
