@@ -1,9 +1,9 @@
-const BASE_URL = "http://localhost:3090/api/";
+import axios from "axios";
+const BASE_URL = "http://localhost:3090/api";
 
 export const get = async () => {
-  const data = await fetch(`${BASE_URL}/books`);
-  const res = await data.json();
-  return res;
+  const res = await axios.get(`${BASE_URL}/books`);
+  return res.data;
 };
 
 // export const createVideo = async (videoData) => {
