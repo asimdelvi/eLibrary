@@ -6,17 +6,15 @@ export const get = async () => {
   return res.data;
 };
 
-// export const createVideo = async (videoData) => {
-//   const data = await fetch("https://my-json-server.typicode.com/asimdelvi/videoLibDB/videos/", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(videoData),
-//   });
-//   const res = await data.json();
-//   return res;
-// };
+export const create = async (data, token) => {
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
+  const res = await axios.post(`${BASE_URL}/books`, data, config);
+  return res.data;
+};
 
 // export const deleteVideo = async (id) => {
 //   const data = await fetch(
@@ -31,6 +29,7 @@ export const get = async () => {
 
 const booksAPI = {
   get,
+  create,
 };
 
 export default booksAPI;

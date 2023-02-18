@@ -4,16 +4,17 @@ import { getBooks } from "../../redux/features/bookSlice";
 
 export const Books = () => {
   const dispatch = useDispatch();
-  const { books } = useSelector((state) => state.books.books);
-
-  console.log(books);
+  const { books } = useSelector((state) => state.books);
 
   useEffect(() => {
     dispatch(getBooks());
-  });
+  }, [dispatch]);
+
   return (
     <>
-      <h1>Hello</h1>
+      {books.map((book, index) => (
+        <h1 key={index}> {book.title} </h1>
+      ))}
     </>
   );
 };
