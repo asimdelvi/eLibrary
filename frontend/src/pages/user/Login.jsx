@@ -13,6 +13,7 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log({ email, password });
     dispatch(login({ email, password }));
     setPassword("");
     setEmail("");

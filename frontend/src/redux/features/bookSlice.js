@@ -39,6 +39,42 @@ export const createBook = createAsyncThunk(
   }
 );
 
+export const deleteBook = createAsyncThunk(
+  "books/delete",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await booksAPI.remove(id, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateBook = createAsyncThunk(
+  "books/update",
+  async (id, data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await booksAPI.update(id, data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const bookSlice = createSlice({
   name: "books",
   initialState,
@@ -65,6 +101,37 @@ export const bookSlice = createSlice({
         state.error = null;
       })
       .addCase(createBook.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+      })
+      .addCase(deleteBook.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(deleteBook.fulfilled, (state, action) => {
+        state.books = state.books.filter(
+          (book) => book.id !== action.payload.id
+        );
+        state.status = "fulfilled";
+        state.error = null;
+      })
+      .addCase(deleteBook.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+      })
+      .addCase(updateBook.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(updateBook.fulfilled, (state, action) => {
+        const { _id, title, pdfURL } = action.payload;
+        const bookToUpdate = state.books.find((book) => book._id === _id);
+        if (bookToUpdate) {
+          bookToUpdate.title = title;
+          bookToUpdate.pdfURL = pdfURL;
+        }
+        state.status = "fulfilled";
+        state.error = null;
+      })
+      .addCase(updateBook.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.payload;
       });

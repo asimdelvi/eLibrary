@@ -1,12 +1,12 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:3090/api";
 
-export const get = async () => {
+const get = async () => {
   const res = await axios.get(`${BASE_URL}/books`);
   return res.data;
 };
 
-export const create = async (data, token) => {
+const create = async (data, token) => {
   const config = {
     headers: {
       Authorization: token,
@@ -16,20 +16,32 @@ export const create = async (data, token) => {
   return res.data;
 };
 
-// export const deleteVideo = async (id) => {
-//   const data = await fetch(
-//     `https://my-json-server.typicode.com/asimdelvi/videoLibDB/videos/${id}`,
-//     {
-//       method: "DELETE",
-//     }
-//   );
-//   const res = await data.json();
-//   return res;
-// };
+const remove = async (id, token) => {
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
+  console.log(id, config);
+  const res = await axios.delete(`${BASE_URL}/books/${id}`, config);
+  return res.data;
+};
+
+const update = async (id, data, token) => {
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
+  const res = await axios.patch(`${BASE_URL}/books/${id}`, data, config);
+  return res.data;
+};
 
 const booksAPI = {
   get,
   create,
+  remove,
+  update,
 };
 
 export default booksAPI;
