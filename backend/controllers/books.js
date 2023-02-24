@@ -1,38 +1,46 @@
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { v4 as uuidv4 } from "uuid";
+import shortid from "shortid";
 import { Book } from "../models/books.js";
 import fs from "fs";
 import AppError from "../middleware/errorMiddleware.js";
+import path from "path";
 
 // ES6 does not support __dirname
 // Converts present file URL to path
 const __filename = fileURLToPath(import.meta.url);
-// selects directories, removes the fileName
-const __dirname = dirname(__filename);
+// selects directories, removes the fileName and one directory up.
+const __dirname = path.join(__filename, "../../");
 
 // * Index | /api/books | GET | Display all books
 export const index = async (req, res) => {
   const allBooks = await Book.find({}).populate("createdBy", "username");
+  console.log(__filename);
   res.status(200).json(allBooks);
 };
 
 // * Create | /api/books | POST | Create new book on server
 export const createBook = async (req, res) => {
-  // TODO: Can we use mongoose instead (pre)
-  const path = __dirname + `/../uploads/${uuidv4()}/`;
-
-  const { book} = req.files;
+  const { book } = req.files;
   const { title } = req.body;
-  const pdfURL = path + book.name;
 
-  fs.mkdirSync(path);
-  book.mv(pdfURL);
+  const bookID = shortid.generate();
+
+  const path = __dirname + `uploads/`;
+  const bookName = bookID + book.name;
+
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+  }
+
+  book.mv(path + bookName);
+
   const createdBook = await Book.create({
     title,
-    pdfURL,
+    pdfURL: bookName,
     createdBy: req.user.id,
   });
+
   res.status(200).json(createdBook);
 };
 
@@ -49,18 +57,23 @@ export const showBook = async (req, res) => {
 // TODO: optimize the code and document it.
 // TODO: calling findById so many times
 export const updateBook = async (req, res) => {
+  const bookID = shortid.generate();
+
+  const path = __dirname + `uploads/`;
+  const bookName = bookID + book.name;
+
   let book = await Book.findById(req.params.id);
+
   if (!book) throw new AppError("Book not found", 400);
-  let { pdfURL} = book;
+
+  let { pdfURL } = book;
   const filesToUpdate = req.files;
   const { title } = req.body;
-  if (filesToUpdate) {
-    if (filesToUpdate.book) {
-      const book = filesToUpdate.book;
-      book.mv(dirname(pdfURL) + "/" + book.name);
-      fs.unlinkSync(pdfURL);
-      pdfURL = dirname(pdfURL) + "/" + book.name;
-    }
+  if (filesToUpdate && filesToUpdate.book) {
+    const book = filesToUpdate.book;
+    book.mv(dirname(pdfURL) + "/" + book.name);
+    fs.unlinkSync(pdfURL);
+    pdfURL = dirname(pdfURL) + "/" + book.name;
   }
 
   await Book.findByIdAndUpdate(req.params.id, {
@@ -81,3 +94,5 @@ export const deleteBook = async (req, res) => {
   await Book.findByIdAndRemove(req.params.id);
   res.status(200).json({ id: req.params.id });
 };
+
+// * Download | /api/books/:path | GEt | Download the file form the file sytem
