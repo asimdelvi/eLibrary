@@ -10,8 +10,7 @@ const initialState = {
 
 export const getBooks = createAsyncThunk("books/get", async (thunkAPI) => {
   try {
-    console.log(thunkAPI);
-    return await booksAPI.get();
+    return await booksAPI.getAll();
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||

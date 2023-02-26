@@ -10,7 +10,7 @@ export const UpdateBook = () => {
   const selectedBook = books.find((book) => book._id === id);
 
   const [title, setTitle] = useState(selectedBook.title);
-  const [book, setBook] = useState(null);
+  const [book, setBook] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ export const UpdateBook = () => {
     formData.append("book", book);
     dispatch(updateBook(formData));
     setTitle("");
-    setBook(null);
+    setBook();
   };
 
   return (

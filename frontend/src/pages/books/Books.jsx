@@ -16,7 +16,7 @@ export const Books = () => {
       {books.map((book, index) => (
         <div key={index}>
           <h1> {book.title} </h1>
-          <Link to={`/books/${book._id}`}>Book</Link>
+          <Link to={`/books/${book._id}`}>View</Link>
         </div>
       ))}
     </>

@@ -6,9 +6,10 @@ export const NewBook = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
-  const [book, setBook] = useState(null);
+  const [book, setBook] = useState();
 
   const handleSubmit = (e) => {
+    console.log(book);
     e.preventDefault();
     let formData = new FormData();
     formData.append("title", title);

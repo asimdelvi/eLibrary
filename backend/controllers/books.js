@@ -1,8 +1,7 @@
 import { fileURLToPath } from "url";
-import { dirname } from "path";
 import shortid from "shortid";
 import { Book } from "../models/books.js";
-import fs from "fs";
+import fs, { read } from "fs";
 import AppError from "../middleware/errorMiddleware.js";
 import path from "path";
 
@@ -11,11 +10,11 @@ import path from "path";
 const __filename = fileURLToPath(import.meta.url);
 // selects directories, removes the fileName and one directory up.
 const __dirname = path.join(__filename, "../../");
+const uploadPath = __dirname + `uploads/`;
 
 // * Index | /api/books | GET | Display all books
 export const index = async (req, res) => {
   const allBooks = await Book.find({}).populate("createdBy", "username");
-  console.log(__filename);
   res.status(200).json(allBooks);
 };
 
@@ -24,16 +23,13 @@ export const createBook = async (req, res) => {
   const { book } = req.files;
   const { title } = req.body;
 
-  const bookID = shortid.generate();
+  const bookName = shortid.generate() + book.name;
 
-  const path = __dirname + `uploads/`;
-  const bookName = bookID + book.name;
-
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path);
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath);
   }
 
-  book.mv(path + bookName);
+  book.mv(uploadPath + bookName);
 
   const createdBook = await Book.create({
     title,
@@ -57,42 +53,38 @@ export const showBook = async (req, res) => {
 // TODO: optimize the code and document it.
 // TODO: calling findById so many times
 export const updateBook = async (req, res) => {
-  const bookID = shortid.generate();
-
-  const path = __dirname + `uploads/`;
-  const bookName = bookID + book.name;
-
   let book = await Book.findById(req.params.id);
 
   if (!book) throw new AppError("Book not found", 400);
 
-  let { pdfURL } = book;
-  const filesToUpdate = req.files;
-  const { title } = req.body;
-  if (filesToUpdate && filesToUpdate.book) {
-    const book = filesToUpdate.book;
-    book.mv(dirname(pdfURL) + "/" + book.name);
-    fs.unlinkSync(pdfURL);
-    pdfURL = dirname(pdfURL) + "/" + book.name;
+  if (req.body.title) book.title = req.body.title;
+  if (req.files && req.files.book) {
+    const newBook = req.files.book;
+    const bookName = shortid.generate() + newBook.name;
+    newBook.mv(uploadPath + bookName);
+    fs.rmSync(uploadPath + book.pdfURL);
+    book.pdfURL = bookName;
   }
-
-  await Book.findByIdAndUpdate(req.params.id, {
-    pdfURL,
-    title,
-  });
-  const updatedBook = await Book.findById(req.params.id);
-
-  res.status(200).json(updatedBook);
+  await book.save();
+  res.status(200).json(book);
 };
 
 // * Destroy | /api/books/:id | DELETE | Deletes specific item on server
 export const deleteBook = async (req, res) => {
   const book = await Book.findById(req.params.id);
   if (!book) throw new AppError("Book not found", 400);
-  const { pdfURL } = book;
-  fs.rmSync(dirname(pdfURL), { recursive: true, force: true });
+
+  fs.rmSync(uploadPath + book.pdfURL, { recursive: true, force: true });
   await Book.findByIdAndRemove(req.params.id);
   res.status(200).json({ id: req.params.id });
 };
 
-// * Download | /api/books/:path | GEt | Download the file form the file sytem
+// * Download | /api/books/:path | GET | Download the file form the file sytem
+export const downloadBook = (req, res) => {
+  const bookName = req.params.filename;
+  const bookPath = uploadPath + bookName;
+  if (!fs.existsSync(bookPath))
+    throw new AppError("No such file or directory", 404);
+  res.download(bookPath);
+  // res.status(200).json({ file: bookName });
+};
