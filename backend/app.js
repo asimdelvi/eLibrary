@@ -11,10 +11,19 @@ import fileUpload from "express-fileupload";
 import { router as booksRouter } from "./routes/books.js";
 import { router as userRouter } from "./routes/users.js";
 import AppError, { errorHandler } from "./middleware/errorMiddleware.js";
+import cors from "cors";
 
 mongoose.connect(process.env.DB_URL).then(() => console.log("DB connected"));
 
 const app = express();
+
+// TODO: know about the cors issue
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // * Middleware
 app.use(express.json());

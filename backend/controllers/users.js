@@ -23,7 +23,12 @@ export const registerUser = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 12);
   const user = await User.create({ username, email, password: hashedPassword });
 
-  res.status(200).json({ user, token: generateToken(user.id) });
+  res.status(200).json({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    token: generateToken(user.id),
+  });
 };
 
 export const loginUser = async (req, res) => {
@@ -32,7 +37,12 @@ export const loginUser = async (req, res) => {
   if (!(user && bcrypt.compareSync(password, user.password))) {
     throw new AppError("Incorrect email or password");
   }
-  res.status(200).json({ user, token: generateToken(user.id) });
+  res.status(200).json({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    token: generateToken(user.id),
+  });
 };
 
 // No need of logout in backend,
