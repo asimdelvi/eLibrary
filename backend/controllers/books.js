@@ -53,7 +53,10 @@ export const showBook = async (req, res) => {
 // TODO: optimize the code and document it.
 // TODO: calling findById so many times
 export const updateBook = async (req, res) => {
-  let book = await Book.findById(req.params.id);
+  let book = await Book.findById(req.params.id).populate(
+    "createdBy",
+    "username"
+  );
 
   if (!book) throw new AppError("Book not found", 400);
 
@@ -66,6 +69,7 @@ export const updateBook = async (req, res) => {
     book.pdfURL = bookName;
   }
   await book.save();
+
   res.status(200).json(book);
 };
 

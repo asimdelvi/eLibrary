@@ -6,9 +6,15 @@ const initialState = {
   books: [],
   status: "idle",
   error: null,
+  selectedBook: {
+    _id: 0,
+    title: "",
+    pdfURL: "",
+    createdBy: { _id: 0, username: "" },
+  },
 };
 
-export const getBooks = createAsyncThunk("books/get", async (thunkAPI) => {
+export const getBooks = createAsyncThunk("books/getAll", async (thunkAPI) => {
   try {
     return await booksAPI.getAll();
   } catch (error) {
@@ -19,6 +25,23 @@ export const getBooks = createAsyncThunk("books/get", async (thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+export const getBook = createAsyncThunk(
+  "books/getOne",
+  async (id, thunkAPI) => {
+    try {
+      return await booksAPI.get(id);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const createBook = createAsyncThunk(
   "books/create",
@@ -58,10 +81,10 @@ export const deleteBook = createAsyncThunk(
 
 export const updateBook = createAsyncThunk(
   "books/update",
-  async (id, data, thunkAPI) => {
+  async (info, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await booksAPI.update(id, data, token);
+      return await booksAPI.update(info.id, info.formData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -88,6 +111,18 @@ export const bookSlice = createSlice({
         state.error = null;
       })
       .addCase(getBooks.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+      })
+      .addCase(getBook.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getBook.fulfilled, (state, action) => {
+        state.selectedBook = action.payload;
+        state.status = "fulfilled";
+        state.error = null;
+      })
+      .addCase(getBook.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.payload;
       })
@@ -127,6 +162,7 @@ export const bookSlice = createSlice({
           bookToUpdate.title = title;
           bookToUpdate.pdfURL = pdfURL;
         }
+        state.selectedBook = action.payload;
         state.status = "fulfilled";
         state.error = null;
       })
