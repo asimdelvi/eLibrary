@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { register } from "../../redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";

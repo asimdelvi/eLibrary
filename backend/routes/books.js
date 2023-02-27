@@ -5,6 +5,7 @@ import {
   updateBook,
   deleteBook,
   downloadBook,
+  viewBook,
 } from "../controllers/books.js";
 import { catchAsync } from "../middleware/errorMiddleware.js";
 import { isLoggedIn, isAuthor } from "../middleware/authMiddleware.js";
@@ -35,3 +36,4 @@ router
   .delete(catchAsync(isLoggedIn), catchAsync(isAuthor), catchAsync(deleteBook));
 
 router.get("/download/:filename", downloadBook);
+router.get("/view/:filename", viewBook);
