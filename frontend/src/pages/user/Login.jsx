@@ -1,22 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { login } from "../../redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
+// TODO: do not clear the form if error ocurred
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitSuccessful },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const { status } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ email, password });
-    dispatch(login({ email, password }));
-    setPassword("");
-    setEmail("");
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful]);
+
+  const onSubmit = (data) => {
+    dispatch(login(data));
   };
 
   // TODO: Add pending, fulfilled, rejected condition
@@ -26,21 +38,21 @@ export const Login = () => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="email"
           placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
+          {...register("email", { required: true })}
         />
         <input
           type="password"
           placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
+          {...register("password", { required: true })}
         />
-        <button type="submit" onClick={handleSubmit}>
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
     </>
   );
 };
+
+// * Can validate using existing schema like Joi Validator

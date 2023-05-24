@@ -1,23 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { register } from "../../redux/features/authSlice";
+import React, { useEffect } from "react";
+import { register as formRegister } from "../../redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 export const Register = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitSuccessful },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+  });
 
   const { status } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(register({ username, email, password }));
-    setUsername("");
-    setPassword("");
-    setEmail("");
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful]);
+
+  const onSubmit = (data) => {
+    dispatch(formRegister(data));
   };
 
   // TODO: Add pending, fulfilled, rejected condition
@@ -27,25 +39,23 @@ export const Register = () => {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
           placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
+          {...register("username", { required: true })}
         />
         <input
           type="email"
           placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
+          {...register("email", { required: true })}
         />
         <input
           type="password"
           placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
+          {...register("password", { required: true })}
         />
-        <button type="submit" onClick={handleSubmit}>
-          Register
-        </button>
+        <button type="submit">Register</button>
       </form>
     </>
   );
