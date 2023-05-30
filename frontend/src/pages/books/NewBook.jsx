@@ -1,42 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createBook } from "../../redux/features/bookSlice";
+import { useForm } from "react-hook-form";
 
 export const NewBook = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitSuccessful },
+  } = useForm();
+
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [book, setBook] = useState();
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful]);
 
-  const handleSubmit = (e) => {
-    console.log(book);
-    e.preventDefault();
+  const onSubmit = (data) => {
     let formData = new FormData();
-    formData.append("title", title);
-    formData.append("book", book);
+    formData.append("title", data.title);
+    formData.append("book", data.book[0]);
     dispatch(createBook(formData));
-    setTitle("");
-    setBook(null);
   };
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
           placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          {...register("title", { required: true })}
         />
         <input
           type="file"
           placeholder="Upload book"
           accept="pdf"
-          onChange={(e) => setBook(e.target.files[0])}
+          {...register("book", { required: true })}
         />
-        <button type="submit" onClick={handleSubmit}>
-          Upload
-        </button>
+        <button>Upload</button>
       </form>
     </>
   );
