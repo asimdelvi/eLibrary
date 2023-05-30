@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { Register } from "./pages/user/Register";

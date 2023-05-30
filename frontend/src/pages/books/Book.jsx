@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBook, getBook } from "../../redux/features/bookSlice";
 import { BASE_URL } from "../../redux/api/books";
+import { ViewFile } from "../../components/ViewFile";
 
 export const Book = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ export const Book = () => {
       <Link to={`${BASE_URL}/books/download/${selectedBook.pdfURL}`} download>
         Download
       </Link>
+      <ViewFile
+        filePath={`${BASE_URL}/books/download/${selectedBook.pdfURL}`}
+      />
       {user.id === selectedBook.createdBy._id ? (
         <>
           <button onClick={() => deleteHandler(selectedBook._id)}>

@@ -92,3 +92,19 @@ export const downloadBook = (req, res) => {
   res.download(bookPath);
   // res.status(200).json({ file: bookName });
 };
+
+export const viewBook = (req, res) => {
+  const bookName = req.params.filename;
+  const bookPath = uploadPath + bookName;
+  fs.readFile(bookPath, function (err, data) {
+    res.contentType("application/pdf");
+    res.send(data);
+  });
+};
+// app.post("/asset", function (request, response) {
+//   var tempFile = "/home/applmgr/Desktop/123456.pdf";
+//   fs.readFile(tempFile, function (err, data) {
+//     response.contentType("application/pdf");
+//     response.send(data);
+//   });
+// });
