@@ -8,6 +8,11 @@ import { NewBook } from "./pages/books/NewBook";
 import { Book } from "./pages/books/Book";
 import { UpdateBook } from "./pages/books/UpdateBook";
 
+import { TbBooks } from "react-icons/tb";
+import { FiLogIn } from "react-icons/fi";
+import { HiUserAdd } from "react-icons/hi";
+import { BiBookAdd, BiHomeAlt2 } from "react-icons/bi";
+
 function App() {
   return (
     <>
@@ -15,21 +20,21 @@ function App() {
         <h1>eLibrary</h1>
         <div>
           <NavLink className="px-4" to="/">
-            Home
+            <BiHomeAlt2 />
           </NavLink>
           <NavLink className="px-4" to="/books">
-            Books
+            <TbBooks />
           </NavLink>
           <NavLink className="px-4" to="/books/new">
-            New Book
+            <BiBookAdd />
           </NavLink>
         </div>
         <div>
           <NavLink className="" to="/Register">
-            Register
+            <HiUserAdd />
           </NavLink>
           <NavLink className="pl-4" to="/Login">
-            Login
+            <FiLogIn />
           </NavLink>
         </div>
       </nav>

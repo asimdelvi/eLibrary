@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./redux/App/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { IconContext } from "react-icons";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -13,7 +14,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <IconContext.Provider
+          value={{ style: { display: "inline" }, size: "1.2em" }}
+        >
+          <App />
+        </IconContext.Provider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
