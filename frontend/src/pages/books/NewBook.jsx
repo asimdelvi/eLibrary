@@ -17,7 +17,7 @@ export const NewBook = () => {
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
   const onSubmit = (data) => {
     let formData = new FormData();

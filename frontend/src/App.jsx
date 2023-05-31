@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+// import "./App.css";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { Register } from "./pages/user/Register";
 import { Login } from "./pages/user/Login";
@@ -11,16 +11,27 @@ import { UpdateBook } from "./pages/books/UpdateBook";
 function App() {
   return (
     <>
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <br />
-        <NavLink to="/books">Books</NavLink>
-        <br />
-        <NavLink to="/books/new">New Book</NavLink>
-        <br />
-        <NavLink to="/Register">Register</NavLink>
-        <br />
-        <NavLink to="/Login">Login</NavLink>
+      <nav className="px-20 flex justify-between nav-background sticky top-0 py-4 border-0 rounded-none">
+        <h1>eLibrary</h1>
+        <div>
+          <NavLink className="px-4" to="/">
+            Home
+          </NavLink>
+          <NavLink className="px-4" to="/books">
+            Books
+          </NavLink>
+          <NavLink className="px-4" to="/books/new">
+            New Book
+          </NavLink>
+        </div>
+        <div>
+          <NavLink className="" to="/Register">
+            Register
+          </NavLink>
+          <NavLink className="pl-4" to="/Login">
+            Login
+          </NavLink>
+        </div>
       </nav>
       <Routes>
         <Route path="/" element={<h1>Home</h1>} />
