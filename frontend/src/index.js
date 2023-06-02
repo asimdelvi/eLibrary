@@ -15,7 +15,11 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <IconContext.Provider
-          value={{ style: { display: "inline" }, size: "1.2em" }}
+          value={{
+            style: { display: "inline" },
+            size: "1em",
+            color: "white",
+          }}
         >
           <App />
         </IconContext.Provider>

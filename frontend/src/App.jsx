@@ -9,32 +9,37 @@ import { Book } from "./pages/books/Book";
 import { UpdateBook } from "./pages/books/UpdateBook";
 
 import { TbBooks } from "react-icons/tb";
-import { FiLogIn } from "react-icons/fi";
-import { HiUserAdd } from "react-icons/hi";
 import { BiBookAdd, BiHomeAlt2 } from "react-icons/bi";
 
 function App() {
   return (
     <>
-      <nav className="px-20 flex justify-between nav-background sticky top-0 py-4 border-0 rounded-none">
+      <nav className="px-20 flex items-center justify-between nav-background sticky top-0 py-4 border-0 rounded-none">
         <h1>eLibrary</h1>
-        <div>
+        <div className="flex items-center">
           <NavLink className="px-4" to="/">
-            <BiHomeAlt2 />
+            <div className="rounded-full border-black border-r-[1px] border-t-[1px] border-b-[1px] rounded-l-0">
+              <BiHomeAlt2 className="rounded-full bg-black p-[6px] box-content" />
+              <span className="pr-3 pl-2">Home</span>
+            </div>
           </NavLink>
           <NavLink className="px-4" to="/books">
-            <TbBooks />
+            <TbBooks className="rounded-full bg-black p-[6px] box-content" />
           </NavLink>
           <NavLink className="px-4" to="/books/new">
-            <BiBookAdd />
+            <BiBookAdd className="rounded-full bg-black p-[6px] box-content" />
           </NavLink>
         </div>
         <div>
-          <NavLink className="" to="/Register">
-            <HiUserAdd />
+          <NavLink to="/Login">
+            <span className="rounded-xl bg-black border-black border-2 text-white px-2 py-1">
+              Login
+            </span>
           </NavLink>
-          <NavLink className="pl-4" to="/Login">
-            <FiLogIn />
+          <NavLink to="/Register">
+            <span className="ml-4 rounded-xl border-black border-2 px-2 py-1">
+              Register
+            </span>
           </NavLink>
         </div>
       </nav>
