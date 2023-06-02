@@ -26,7 +26,7 @@ export const Register = () => {
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
   const onSubmit = (data) => {
     dispatch(formRegister(data));

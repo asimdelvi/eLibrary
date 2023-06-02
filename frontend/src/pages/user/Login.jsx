@@ -25,7 +25,7 @@ export const Login = () => {
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
   const onSubmit = (data) => {
     dispatch(login(data));
