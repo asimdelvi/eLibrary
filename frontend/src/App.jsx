@@ -14,30 +14,42 @@ import { BiBookAdd, BiHomeAlt2 } from "react-icons/bi";
 function App() {
   return (
     <>
-      <nav className="px-20 flex items-center justify-between nav-background sticky top-0 py-4 border-0 rounded-none">
+      <nav className="transition duration-700 ease-in px-20 flex items-center justify-between nav-background sticky top-0 py-4 border-0 rounded-none">
         <h1>eLibrary</h1>
         <div className="flex items-center">
-          <NavLink className="px-4" to="/">
-            <div className="rounded-full border-black border-r-[1px] border-t-[1px] border-b-[1px] rounded-l-0">
+          <NavLink className="px-4 group" to="/">
+            <div className="rounded-full flex">
               <BiHomeAlt2 className="rounded-full bg-black p-[6px] box-content" />
-              <span className="pr-3 pl-2">Home</span>
+              <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
+                Home
+              </span>
             </div>
           </NavLink>
-          <NavLink className="px-4" to="/books">
-            <TbBooks className="rounded-full bg-black p-[6px] box-content" />
+          <NavLink className="px-4 group" to="/books">
+            <div className="rounded-full flex">
+              <TbBooks className="rounded-full bg-black p-[6px] box-content" />
+              <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
+                Books
+              </span>
+            </div>
           </NavLink>
-          <NavLink className="px-4" to="/books/new">
-            <BiBookAdd className="rounded-full bg-black p-[6px] box-content" />
+          <NavLink className="px-4 group" to="/books/new">
+            <div className="rounded-full flex">
+              <BiBookAdd className="rounded-full bg-black p-[6px] box-content" />
+              <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
+                New Book
+              </span>
+            </div>
           </NavLink>
         </div>
         <div>
           <NavLink to="/Login">
-            <span className="rounded-xl bg-black border-black border-2 text-white px-2 py-1">
+            <span className="rounded-xl bg-black border-black border-2 text-white px-3 py-[6px] text-sm">
               Login
             </span>
           </NavLink>
           <NavLink to="/Register">
-            <span className="ml-4 rounded-xl border-black border-2 px-2 py-1">
+            <span className="ml-4 rounded-xl border-black border-2 px-3 py-[6px] text-sm">
               Register
             </span>
           </NavLink>
