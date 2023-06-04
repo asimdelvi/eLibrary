@@ -15,21 +15,25 @@
     opacity: 0;
     font-size: 1px;
   }
+
   .group:hover .animate-nav {
     display: inline;
     opacity: 1;
-    transform: translateX(-20%);
+    @apply text-sm;
+    transform: translateX(-16%);
     animation: fadeIn 0.1s ease-in forwards;
   }
 
   .group:hover .animate-border {
     @apply border-black border-[1px] border-l-0 rounded-r-full rounded-t-full rounded-b-full rounded-l-none;
-    animation: fadeIn 0.5s ease-in forwards;
+    animation: fadeIn 0.1s ease-in forwards;
   }
 
-  .group:hover {
+  .group:hover,
+  .active {
     padding: 0;
   }
+
   @keyframes fadeIn {
     0% {
       display: none;
@@ -41,5 +45,16 @@
       opacity: 1;
       @apply text-sm;
     }
+  }
+
+  .active .animate-border {
+    @apply border-black border-[1px] border-l-0 rounded-r-full rounded-t-full rounded-b-full rounded-l-none;
+  }
+
+  .active .animate-nav {
+    display: inline;
+    opacity: 1;
+    @apply text-sm;
+    transform: translateX(-16%);
   }
 }

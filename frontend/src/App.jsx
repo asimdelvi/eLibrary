@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <nav className="transition duration-700 ease-in px-20 flex items-center justify-between nav-background sticky top-0 py-4 border-0 rounded-none">
-        <h1>eLibrary</h1>
+        <h1 className="text-lg font-mono font-extrabold">eLibrary</h1>
         <div className="flex items-center">
           <NavLink className="px-4 group" to="/">
             <div className="rounded-full flex">
@@ -33,7 +33,7 @@ function App() {
               </span>
             </div>
           </NavLink>
-          <NavLink className="px-4 group" to="/books/new">
+          <NavLink className="mx-4 group" to="/books/new">
             <div className="rounded-full flex">
               <BiBookAdd className="rounded-full bg-black p-[6px] box-content" />
               <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
