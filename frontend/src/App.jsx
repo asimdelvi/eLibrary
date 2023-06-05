@@ -1,11 +1,11 @@
 import React from "react";
-// import "./App.css";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { Register } from "./pages/user/Register";
 import { Login } from "./pages/user/Login";
 import { Books } from "./pages/books/Books";
 import { NewBook } from "./pages/books/NewBook";
 import { Book } from "./pages/books/Book";
+import { Home } from "./pages/books/Home";
 import { UpdateBook } from "./pages/books/UpdateBook";
 
 import { TbBooks } from "react-icons/tb";
@@ -14,10 +14,12 @@ import { BiBookAdd, BiHomeAlt2 } from "react-icons/bi";
 function App() {
   return (
     <>
-      <nav className="transition duration-700 ease-in px-20 flex items-center justify-between nav-background sticky top-0 py-4 border-0 rounded-none">
-        <h1 className="text-lg font-mono font-extrabold">eLibrary</h1>
+      <nav className="px-20 flex items-center justify-between nav-background sticky z-40 top-0 py-4 border-0 rounded-none">
+        <NavLink to="/">
+          <h1 className="text-2xl font-mono font-extrabold">eLibrary</h1>
+        </NavLink>
         <div className="flex items-center">
-          <NavLink className="px-4 group" to="/">
+          <NavLink className="mr-4 group" to="/">
             <div className="rounded-full flex">
               <BiHomeAlt2 className="rounded-full bg-black p-[6px] box-content" />
               <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
@@ -25,7 +27,7 @@ function App() {
               </span>
             </div>
           </NavLink>
-          <NavLink className="px-4 group" to="/books">
+          <NavLink className="mr-4 group" to="/books/all">
             <div className="rounded-full flex">
               <TbBooks className="rounded-full bg-black p-[6px] box-content" />
               <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
@@ -33,7 +35,7 @@ function App() {
               </span>
             </div>
           </NavLink>
-          <NavLink className="mx-4 group" to="/books/new">
+          <NavLink className="mr-4 group" to="/books/new">
             <div className="rounded-full flex">
               <BiBookAdd className="rounded-full bg-black p-[6px] box-content" />
               <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
@@ -44,20 +46,20 @@ function App() {
         </div>
         <div>
           <NavLink to="/Login">
-            <span className="rounded-xl bg-black border-black border-2 text-white px-3 py-[6px] text-sm">
+            <span className="rounded-xl bg-black border-black border-2 text-white px-3 py-[6px] text-sm hover:bg-gray-800">
               Login
             </span>
           </NavLink>
           <NavLink to="/Register">
-            <span className="ml-4 rounded-xl border-black border-2 px-3 py-[6px] text-sm">
+            <span className="ml-4 rounded-xl border-black border-2 px-3 py-[6px] text-sm hover:border-gray-600 hover:text-gray-800">
               Register
             </span>
           </NavLink>
         </div>
       </nav>
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
-        <Route path="/books" element={<Books />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/books/all" element={<Books />} />
         <Route path="/books/new" element={<NewBook />} />
         <Route path="/books/:id" element={<Book />} />
         <Route path="/books/:id/update" element={<UpdateBook />} />

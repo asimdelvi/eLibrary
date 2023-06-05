@@ -10,6 +10,16 @@
     border: 1px solid rgba(209, 213, 219, 0.3);
   }
 
+  .hero-background {
+    backdrop-filter: blur(40px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+  }
+
+  .hero-shape {
+    background: linear-gradient(110deg, #fff, #f00, #0f0, #00f, #fff);
+  }
   .animate-nav {
     display: none;
     opacity: 0;
@@ -21,6 +31,8 @@
     opacity: 1;
     @apply text-sm;
     transform: translateX(-16%);
+    /* position: relative;
+    left: -16px; */
     animation: fadeIn 0.1s ease-in forwards;
   }
 
@@ -31,7 +43,7 @@
 
   .group:hover,
   .active {
-    padding: 0;
+    margin: 0 !important;
   }
 
   @keyframes fadeIn {
@@ -56,5 +68,69 @@
     opacity: 1;
     @apply text-sm;
     transform: translateX(-16%);
+    /* position: relative;
+    left: -16px; */
+  }
+
+  .text-gradient {
+    font-size: 72px;
+    background: linear-gradient(1turn, #8ab483, #4e8361);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 20s ease-in-out infinite;
+  }
+  @keyframes gradient {
+    0% {
+      background: linear-gradient(1turn, #8ab483, #4e8361);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    50% {
+      background: linear-gradient(1turn, #6e79af, #414a76);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    100% {
+      background: linear-gradient(1turn, #df629c, #df6762);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .btn-shadow {
+    box-shadow: 0px 0px 30px 5px #8ab483;
+    border: 2px solid #8ab483;
+    animation: shadow 20s ease-in-out infinite;
+  }
+
+  .btn-shadow:hover {
+    background: linear-gradient(1turn, #8ab483, #4e8361);
+    animation: hover-btn 20s ease-in-out infinite;
+  }
+  @keyframes shadow {
+    0% {
+      box-shadow: 0px 0px 30px 5px #8ab483;
+      border: 2px solid #8ab483;
+    }
+    50% {
+      box-shadow: 0px 0px 30px 5px #6e79af;
+      border: 2px solid #6e79af;
+    }
+    100% {
+      box-shadow: 0px 0px 30px 5px #df629c;
+      border: 2px solid #df629c;
+    }
+  }
+
+  @keyframes hover-btn {
+    0% {
+      background: linear-gradient(1turn, #8ab483, #4e8361);
+    }
+    50% {
+      background: linear-gradient(1turn, #6e79af, #414a76);
+    }
+    100% {
+      background: linear-gradient(1turn, #df629c, #df6762);
+    }
   }
 }
