@@ -17,7 +17,7 @@ export const Home = () => {
           joy of reading together.
         </p>
         <Link to="/books/all">
-          <span className="ml-4 rounded-xl border-black border-2 px-6 py-3 text-xl hover:border-gray-600 hover:text-gray-800">
+          <span className="ml-4 rounded-xl px-6 py-3 text-xl btn-shadow">
             Explore Books
           </span>
         </Link>
