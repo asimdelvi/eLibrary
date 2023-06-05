@@ -21,6 +21,8 @@
     opacity: 1;
     @apply text-sm;
     transform: translateX(-16%);
+    /* position: relative;
+    left: -16px; */
     animation: fadeIn 0.1s ease-in forwards;
   }
 
@@ -31,7 +33,7 @@
 
   .group:hover,
   .active {
-    padding: 0;
+    margin: 0 !important;
   }
 
   @keyframes fadeIn {
@@ -56,5 +58,7 @@
     opacity: 1;
     @apply text-sm;
     transform: translateX(-16%);
+    /* position: relative;
+    left: -16px; */
   }
 }
