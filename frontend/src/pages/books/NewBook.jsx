@@ -30,22 +30,25 @@ export const NewBook = () => {
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex h-[50%] flex-col max-width-[10rem] justify-around items-center border-2 border-gray-700 shadow-lg bg-[#dfd2b9] rounded-3xl"
+        className="flex p-2 h-[50%] flex-col max-width-[10rem] justify-around items-center border-[1px] border-gray-700 shadow-lg bg-[#dad9d9] rounded-xl"
       >
+        <h2 className="text-lg font-bold">Add Book</h2>
         <input
-          className="m-2"
+          className="w-full p-1  rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
           type="text"
           placeholder="Title"
           {...register("title", { required: true })}
         />
         <input
-          className="m-2"
+          className="w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
           type="file"
           placeholder="Upload book"
           accept="pdf"
           {...register("book", { required: true })}
         />
-        <button className="m-2">Upload</button>
+        <button className="m-2 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md">
+          Add
+        </button>
       </form>
     </div>
   );
