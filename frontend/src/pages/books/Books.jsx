@@ -34,7 +34,7 @@ export const Books = () => {
             }
             onClick={() => handleClick(index)}
           >
-            <h1 className="text-lg px-7 py-2 text-clip"> {book.title} </h1>
+            <h2 className="text-lg px-7 py-2 text-clip"> {book.title} </h2>
 
             {clickedIndex === index ? (
               <div>

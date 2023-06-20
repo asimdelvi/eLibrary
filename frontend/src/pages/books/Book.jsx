@@ -20,24 +20,38 @@ export const Book = () => {
   };
 
   return (
-    <>
-      <div>{selectedBook.title}</div>
-      <Link to={`${BASE_URL}/books/download/${selectedBook.pdfURL}`} download>
-        Download
-      </Link>
+    <div className="px-24 flex flex-row justify-stretch items-start my-10">
+      <div className="basis-1/2 max-w-[50%] flex flex-col mr-7 items-start justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl bg-[#dad9d9]">
+        <h2 className="text-lg px-7 py-2 text-clip">{selectedBook.title}</h2>
+        <div className="px-7 pb-4">
+          <Link to={`${BASE_URL}/books/download/${selectedBook.pdfURL}`}>
+            <span className="mr-1 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md">
+              Download
+            </span>
+          </Link>
+
+          {user.id === selectedBook.createdBy._id ? (
+            <>
+              <button onClick={() => deleteHandler(selectedBook._id)}>
+                <span className="mr-1 rounded-lg bg-black border-black border-2 text-white px-3 py-[6px] text-sm hover:shadow-md">
+                  Delete
+                </span>
+              </button>
+              <Link to={`/books/${id}/update`}>
+                <span className="rounded-lg bg-black border-black border-2 text-white px-3 py-[6px] text-sm hover:shadow-md">
+                  Update
+                </span>
+              </Link>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
       <ViewFile
+        className="basis-1/2"
         filePath={`${BASE_URL}/books/download/${selectedBook.pdfURL}`}
       />
-      {user.id === selectedBook.createdBy._id ? (
-        <>
-          <button onClick={() => deleteHandler(selectedBook._id)}>
-            Delete
-          </button>
-          <Link to={`/books/${id}/update`}>Update</Link>
-        </>
-      ) : (
-        ""
-      )}
-    </>
+    </div>
   );
 };

@@ -18,22 +18,29 @@ export const ViewFile = ({ filePath }) => {
   };
 
   return (
-    <div>
-      <Document file={filePath} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
-      </Document>
-      <p>
-        <button disabled={pageNumber <= 1} onClick={() => decrementPage()}>
+    <div className="border-gray-700 border-[1px] shadow-xl rounded-xl p-1 flex flex-col items-center">
+      <div className="pt-2">
+        <button
+          disabled={pageNumber <= 1}
+          onClick={() => decrementPage()}
+          className="border-[1px] border-gray-400 bg-[#b59d9a75] rounded-l-md px-2 leading-relaxed hover:bg-[#b59d9aa8]"
+        >
           -
         </button>
-        {pageNumber} / {numPages}
+        <span className="border-[1px] border-gray-400 bg-[#b59d9aa8] py-1 px-2">
+          {pageNumber} / {numPages}
+        </span>
         <button
           disabled={pageNumber >= numPages}
           onClick={() => incrementPage()}
+          className="border-[1px] border-gray-400 bg-[#b59d9a75] rounded-r-md px-2 leading-relaxed hover:bg-[#b59d9aa8]"
         >
           +
         </button>
-      </p>
+      </div>
+      <Document file={filePath} onLoadSuccess={onDocumentLoadSuccess}>
+        <Page pageNumber={pageNumber} />
+      </Document>
     </div>
   );
 };
