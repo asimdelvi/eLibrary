@@ -1,6 +1,6 @@
 import axios from "axios";
 export const BASE_URL =
-  process.env.NODE_ENV !== "Production"
+  process.env.NODE_ENV !== "production"
     ? process.env.REACT_APP_BASE_URL_LOCAL
     : process.env.REACT_APP_BASE_URL_PROD;
 
