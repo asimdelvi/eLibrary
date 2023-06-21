@@ -1,5 +1,8 @@
 import axios from "axios";
-export const BASE_URL = "http://localhost:3090/api";
+export const BASE_URL =
+  process.env.NODE_ENV !== "Production"
+    ? process.env.REACT_APP_BASE_URL_LOCAL
+    : process.env.REACT_APP_BASE_URL_PROD;
 
 const getAll = async () => {
   const res = await axios.get(`${BASE_URL}/books`);
@@ -37,9 +40,7 @@ const update = async (id, data, token) => {
       Authorization: token,
     },
   };
-  // console.log(data, id);
   const res = await axios.patch(`${BASE_URL}/books/${id}`, data, config);
-  // console.log(res);
   return res.data;
 };
 

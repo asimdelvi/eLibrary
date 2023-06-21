@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3090/api/users";
+export const BASE_URL =
+  process.env.NODE_ENV !== "Production"
+    ? process.env.REACT_APP_BASE_URL_LOCAL
+    : process.env.REACT_APP_BASE_URL_PROD;
 
 const register = async (userData) => {
   // try {
-  const res = await axios.post(`${BASE_URL}/register`, userData);
+  const res = await axios.post(`${BASE_URL}/users/register`, userData);
   if (res.data) {
     localStorage.setItem("user", JSON.stringify(res.data));
     return res.data;
@@ -12,7 +15,7 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
-  const res = await axios.post(`${BASE_URL}/login`, userData);
+  const res = await axios.post(`${BASE_URL}/users/login`, userData);
   if (res.data) {
     localStorage.setItem("user", JSON.stringify(res.data));
     return res.data;
