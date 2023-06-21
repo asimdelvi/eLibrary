@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/app.js",
-    "server": "nodemon backend/app.js",
-    "concurrent": "concurrently \"cd frontend && npm start\" \"npm run server\""
+    "start": "node app.js",
+    "server": "nodemon app.js"
   },
   "repository": {
     "type": "git",
