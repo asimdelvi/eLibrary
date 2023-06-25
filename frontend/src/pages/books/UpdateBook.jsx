@@ -43,7 +43,7 @@ export const UpdateBook = () => {
           type="file"
           placeholder="Upload book"
           {...register("book")}
-          className="w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
+          className="file:cursor-pointer cursor-pointer w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
         />
 
         {user.id === selectedBook.createdBy._id ? (

@@ -30,7 +30,7 @@ export const Books = () => {
             className={
               clickedIndex === index
                 ? "transition ease-linear duration-700 flex flex-col items-center justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl col-span-2 bg-[#dad9d9]"
-                : "transition ease-linear duration-700 flex flex-col items-center justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl bg-[#dad9d9]"
+                : "cursor-pointer transition ease-linear duration-700 flex flex-col items-center justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl bg-[#dad9d9]"
             }
             onClick={() => handleClick(index)}
           >

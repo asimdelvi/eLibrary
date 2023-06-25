@@ -40,7 +40,7 @@ export const NewBook = () => {
           {...register("title", { required: true })}
         />
         <input
-          className="w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
+          className="file:cursor-pointer cursor-pointer w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
           type="file"
           placeholder="Upload book"
           accept="pdf"
