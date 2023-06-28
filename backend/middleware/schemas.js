@@ -1,24 +1,23 @@
 import Joi from "joi";
 
+// TODO: optimize schema
 export const bookSchema = {
   create: Joi.object({
     body: Joi.object({
-      title: Joi.string().min(1).max(200).required(),
+      title: Joi.string().min(1).max(70).required(),
+      description: Joi.string().max(200),
     }).required(),
-    files: Joi.object({
-      book: Joi.object().required(),
-    }).required(),
+    file: Joi.object().required(),
   }).required(),
 
   update: Joi.object({
     body: Joi.object({
-      title: Joi.string().min(1).max(200),
+      title: Joi.string().min(1).max(70),
+      description: Joi.string().max(200),
     }),
-    files: Joi.object({
-      book: Joi.object(),
-    }).allow(null), // null is allowed if theres no object
-    // title or book or image - any one should be included
-  }).or("body.title", "files.book"),
+    file: Joi.object().allow(null), // null is allowed if theres no object
+    // title or book or description - any one should be included
+  }).or("body.title", "body.description", "file.book"),
 };
 
 //

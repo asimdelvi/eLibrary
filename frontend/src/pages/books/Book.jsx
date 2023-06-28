@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBook, getBook } from "../../redux/features/bookSlice";
-import { BASE_URL } from "../../redux/api/books";
 import { ViewFile } from "../../components/ViewFile";
 
 export const Book = () => {
@@ -22,9 +21,14 @@ export const Book = () => {
   return (
     <div className="px-24 flex flex-row justify-stretch items-start my-10">
       <div className="basis-1/2 max-w-[50%] flex flex-col mr-7 items-start justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl bg-[#dad9d9]">
-        <h2 className="text-lg px-7 py-2 text-clip">{selectedBook.title}</h2>
+        <h2 className="text-lg px-7 pt-2 text-clip font-bold">
+          {selectedBook.title}
+        </h2>
+        <p className="text-lg px-7 pb-2 text-clip">
+          {selectedBook.description || ""}
+        </p>
         <div className="px-7 pb-4">
-          <Link to={`${BASE_URL}/books/download/${selectedBook.pdfURL}`}>
+          <Link to={selectedBook.pdfURL} target="_blank">
             <span className="mr-1 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md">
               Download
             </span>
@@ -48,10 +52,7 @@ export const Book = () => {
           )}
         </div>
       </div>
-      <ViewFile
-        className="basis-1/2"
-        filePath={`${BASE_URL}/books/download/${selectedBook.pdfURL}`}
-      />
+      <ViewFile className="basis-1/2" filePath={selectedBook.pdfURL} />
     </div>
   );
 };

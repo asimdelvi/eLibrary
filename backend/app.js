@@ -7,7 +7,6 @@ if (process.env.NODE_ENV != "Production") {
 
 import express from "express";
 import mongoose from "mongoose";
-import fileUpload from "express-fileupload";
 import { router as booksRouter } from "./routes/books.js";
 import { router as userRouter } from "./routes/users.js";
 import AppError, { errorHandler } from "./middleware/errorMiddleware.js";
@@ -28,7 +27,7 @@ app.use(cors(corsOptions));
 // * Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(fileUpload());
+// app.use(fileUpload());
 
 // * Routes
 app.use("/api/books/", booksRouter);

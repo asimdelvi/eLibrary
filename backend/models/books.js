@@ -6,7 +6,14 @@ const bookSchema = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   pdfURL: {
+    type: String,
+    required: true,
+  },
+  publicID: {
     type: String,
     required: true,
   },

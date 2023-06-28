@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../redux/features/bookSlice";
 import { Link } from "react-router-dom";
-import { BASE_URL } from "../../redux/api/books";
 
 export const Books = () => {
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ export const Books = () => {
                     View
                   </span>
                 </Link>
-                <Link to={`${BASE_URL}/books/download/${book.pdfURL}`} download>
+                <Link to={book.pdfURL} target="_blank">
                   <span className="rounded-lg bg-black border-black border-2 text-white px-3 py-[6px] text-sm hover:shadow-md">
                     Download
                   </span>
