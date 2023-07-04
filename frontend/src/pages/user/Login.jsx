@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import { login } from "../../redux/features/authSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-// TODO: do not clear the form if error ocurred
 export const Login = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { isSubmitSuccessful },
   } = useForm({
     defaultValues: {
@@ -21,11 +19,7 @@ export const Login = () => {
   const { status } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(login(data));
@@ -34,7 +28,8 @@ export const Login = () => {
   // TODO: Add pending, fulfilled, rejected condition
   useEffect(() => {
     console.log(status);
-  }, [status]);
+    if (isSubmitSuccessful && status === "fulfilled") navigate(-1);
+  }, [status, navigate, isSubmitSuccessful]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">

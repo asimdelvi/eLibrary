@@ -1,30 +1,36 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createBook } from "../../redux/features/bookSlice";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export const NewBook = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { isSubmitSuccessful },
   } = useForm();
 
+  const { status } = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const [newBookId, setNewBookId] = useState();
+
+  const onSubmit = async (data) => {
     let formData = new FormData();
     formData.append("title", data.title);
     formData.append("book", data.book[0]);
-    dispatch(createBook(formData));
+    const response = dispatch(createBook(formData));
+    if (response && response.payload && response.payload._id)
+      setNewBookId(response.payload._id);
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful && status === "fulfilled")
+      navigate(`/books/${newBookId}`);
+  }, [status, navigate, isSubmitSuccessful, newBookId]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">

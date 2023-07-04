@@ -3,12 +3,12 @@ import { register as formRegister } from "../../redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { isSubmitSuccessful },
   } = useForm({
     defaultValues: {
@@ -19,14 +19,9 @@ export const Register = () => {
   });
 
   const { status } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(formRegister(data));
@@ -34,8 +29,8 @@ export const Register = () => {
 
   // TODO: Add pending, fulfilled, rejected condition
   useEffect(() => {
-    console.log(status);
-  }, [status]);
+    if (isSubmitSuccessful && status === "fulfilled") navigate(-1);
+  }, [status, isSubmitSuccessful, navigate]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">

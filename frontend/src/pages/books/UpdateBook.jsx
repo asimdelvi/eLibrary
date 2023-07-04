@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBook } from "../../redux/features/bookSlice";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getBook } from "../../redux/features/bookSlice";
 import { useForm } from "react-hook-form";
 
@@ -9,12 +9,19 @@ export const UpdateBook = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { selectedBook } = useSelector((state) => state.books);
+  const { selectedBook, status } = useSelector((state) => state.books);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) dispatch(getBook(id));
   }, [dispatch, id]);
-  const { register, handleSubmit } = useForm({
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitSuccessful },
+  } = useForm({
     defaultValues: { title: selectedBook.title, book: null },
   });
 
@@ -25,6 +32,10 @@ export const UpdateBook = () => {
     if (data.book) formData.append("book", data.book[0]);
     dispatch(updateBook({ id, formData }));
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful && status === "fulfilled") navigate(`/books/${id}`);
+  }, [status, navigate, isSubmitSuccessful, id]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">

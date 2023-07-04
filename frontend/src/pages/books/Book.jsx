@@ -34,7 +34,7 @@ export const Book = () => {
             </span>
           </Link>
 
-          {user.id === selectedBook.createdBy._id ? (
+          {user && user.id === selectedBook.createdBy._id ? (
             <>
               <button onClick={() => deleteHandler(selectedBook._id)}>
                 <span className="mr-1 rounded-lg bg-black border-black border-2 text-white px-3 py-[6px] text-sm hover:shadow-md">
