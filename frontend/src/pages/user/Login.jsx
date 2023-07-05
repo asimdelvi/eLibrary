@@ -28,7 +28,10 @@ export const Login = () => {
   // TODO: Add pending, fulfilled, rejected condition
   useEffect(() => {
     console.log(status);
-    if (isSubmitSuccessful && status === "fulfilled") navigate(-1);
+    if (isSubmitSuccessful && status === "fulfilled") {
+      // console.log(navigate(-1));
+      navigate(-1);
+    }
   }, [status, navigate, isSubmitSuccessful]);
 
   return (

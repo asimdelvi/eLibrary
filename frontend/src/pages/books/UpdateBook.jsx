@@ -12,7 +12,8 @@ export const UpdateBook = () => {
   const { selectedBook, status } = useSelector((state) => state.books);
 
   const navigate = useNavigate();
-
+  // asdf
+  // asdfka
   useEffect(() => {
     if (id) dispatch(getBook(id));
   }, [dispatch, id]);
@@ -34,8 +35,10 @@ export const UpdateBook = () => {
   };
 
   useEffect(() => {
+    if (!user) navigate("/Login");
+    if (user && user.id !== selectedBook.createdBy._id) navigate(-1);
     if (isSubmitSuccessful && status === "fulfilled") navigate(`/books/${id}`);
-  }, [status, navigate, isSubmitSuccessful, id]);
+  }, [status, navigate, isSubmitSuccessful, id, user, selectedBook]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
@@ -57,7 +60,7 @@ export const UpdateBook = () => {
           className="file:cursor-pointer cursor-pointer w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
         />
 
-        {user.id === selectedBook.createdBy._id ? (
+        {user && user.id === selectedBook.createdBy._id ? (
           <button className="m-2 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md">
             Update
           </button>

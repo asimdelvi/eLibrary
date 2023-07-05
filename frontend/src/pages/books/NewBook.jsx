@@ -11,10 +11,13 @@ export const NewBook = () => {
     formState: { isSubmitSuccessful },
   } = useForm();
 
-  const { status } = useSelector((state) => state.books);
+  const bookStatus = useSelector((state) => state.books.status);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
+
+  console.log(user);
 
   const [newBookId, setNewBookId] = useState();
 
@@ -28,9 +31,11 @@ export const NewBook = () => {
   };
 
   useEffect(() => {
-    if (isSubmitSuccessful && status === "fulfilled")
+    if (!user) navigate("/Login");
+
+    if (isSubmitSuccessful && bookStatus === "fulfilled")
       navigate(`/books/${newBookId}`);
-  }, [status, navigate, isSubmitSuccessful, newBookId]);
+  }, [bookStatus, navigate, isSubmitSuccessful, newBookId, user]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
