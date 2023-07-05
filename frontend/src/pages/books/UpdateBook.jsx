@@ -12,8 +12,7 @@ export const UpdateBook = () => {
   const { selectedBook, status } = useSelector((state) => state.books);
 
   const navigate = useNavigate();
-  // asdf
-  // asdfka
+  // last check
   useEffect(() => {
     if (id) dispatch(getBook(id));
   }, [dispatch, id]);
