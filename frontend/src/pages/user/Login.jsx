@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 export const Login = () => {
+  const notify = () => toast("Wow so easy !");
+
   const {
     register,
     handleSubmit,
@@ -30,6 +36,7 @@ export const Login = () => {
     console.log(status);
     if (isSubmitSuccessful && status === "fulfilled") {
       // console.log(navigate(-1));
+      toast("Login successful");
       navigate(-1);
     }
   }, [status, navigate, isSubmitSuccessful]);
@@ -60,6 +67,9 @@ export const Login = () => {
           Login
         </button>
       </form>
+      <div>
+        <button onClick={notify}>Notify !</button>
+      </div>
     </div>
   );
 };

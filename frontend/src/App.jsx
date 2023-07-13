@@ -9,7 +9,13 @@ import { Home } from "./pages/books/Home";
 import { UpdateBook } from "./pages/books/UpdateBook";
 import { NavBar } from "./components/NavBar";
 
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
+  const notify = () => toast("Wow so easy !");
+
   return (
     <>
       <NavBar />
@@ -22,6 +28,10 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
       </Routes>
+      <div>
+        <button onClick={notify}>Notify !</button>
+        <ToastContainer />
+      </div>
     </>
   );
 }
