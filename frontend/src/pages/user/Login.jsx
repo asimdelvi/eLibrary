@@ -3,14 +3,9 @@ import { login } from "../../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
-import { toast } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
+import { notify } from "../../toastify/index.js";
 
 export const Login = () => {
-  const notify = () => toast("Wow so easy !");
-
   const {
     register,
     handleSubmit,
@@ -22,24 +17,25 @@ export const Login = () => {
     },
   });
 
-  const { status } = useSelector((state) => state.auth);
+  const { status, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(login(data));
+    notify.loading();
   };
 
-  // TODO: Add pending, fulfilled, rejected condition
   useEffect(() => {
-    console.log(status);
     if (isSubmitSuccessful && status === "fulfilled") {
-      // console.log(navigate(-1));
-      toast("Login successful");
+      notify.success("Login Successful");
       navigate(-1);
     }
-  }, [status, navigate, isSubmitSuccessful]);
+    if (status === "rejected") {
+      notify.error(`Login Failed, ${error}`);
+    }
+  }, [status, navigate, isSubmitSuccessful, error]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
@@ -67,9 +63,6 @@ export const Login = () => {
           Login
         </button>
       </form>
-      <div>
-        <button onClick={notify}>Notify !</button>
-      </div>
     </div>
   );
 };

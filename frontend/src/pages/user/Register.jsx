@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { notify } from "../../toastify/index.js";
 
 export const Register = () => {
   const {
@@ -18,19 +19,26 @@ export const Register = () => {
     },
   });
 
-  const { status } = useSelector((state) => state.auth);
+  const { status, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(formRegister(data));
+    notify.loading();
   };
 
   // TODO: Add pending, fulfilled, rejected condition
   useEffect(() => {
-    if (isSubmitSuccessful && status === "fulfilled") navigate(-1);
-  }, [status, isSubmitSuccessful, navigate]);
+    if (isSubmitSuccessful && status === "fulfilled") {
+      notify.success("Register Successful");
+      navigate(-1);
+    }
+    if (status === "rejected") {
+      notify.error(`Register Failed, ${error}`);
+    }
+  }, [status, isSubmitSuccessful, navigate, error]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
