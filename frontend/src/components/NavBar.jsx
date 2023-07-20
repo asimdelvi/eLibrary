@@ -35,12 +35,12 @@ export function NavBar() {
         </NavLink>
       </div>
       <div>
-        <NavLink to="/Login">
+        <NavLink to="/login">
           <span className="rounded-xl bg-black border-black border-2 text-white px-3 py-[6px] text-sm hover:bg-gray-800">
             Login
           </span>
         </NavLink>
-        <NavLink to="/Register">
+        <NavLink to="/register">
           <span className="ml-4 rounded-xl border-black border-2 px-3 py-[6px] text-sm hover:border-gray-600 hover:text-gray-800">
             Register
           </span>

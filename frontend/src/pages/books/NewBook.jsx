@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createBook } from "../../redux/features/bookSlice";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { notify } from "../../toastify/index.js";
 
 export const NewBook = () => {
   const {
@@ -11,13 +12,11 @@ export const NewBook = () => {
     formState: { isSubmitSuccessful },
   } = useForm();
 
-  const bookStatus = useSelector((state) => state.books.status);
+  const { status, error } = useSelector((state) => state.books);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
-
-  console.log(user);
 
   const [newBookId, setNewBookId] = useState();
 
@@ -25,17 +24,25 @@ export const NewBook = () => {
     let formData = new FormData();
     formData.append("title", data.title);
     formData.append("book", data.book[0]);
-    const response = dispatch(createBook(formData));
+    notify.loading();
+    if (!user) {
+      notify.error("Please login or register");
+      navigate("/login");
+    }
+    const response = await dispatch(createBook(formData));
     if (response && response.payload && response.payload._id)
       setNewBookId(response.payload._id);
   };
 
   useEffect(() => {
-    if (!user) navigate("/Login");
-
-    if (isSubmitSuccessful && bookStatus === "fulfilled")
+    if (isSubmitSuccessful && status === "fulfilled") {
+      notify.success("Successfully Uploaded");
       navigate(`/books/${newBookId}`);
-  }, [bookStatus, navigate, isSubmitSuccessful, newBookId, user]);
+    }
+    if (status === "rejected") {
+      notify.error(`Failed to upload, ${error}`);
+    }
+  }, [status, error, navigate, isSubmitSuccessful, newBookId, user]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">

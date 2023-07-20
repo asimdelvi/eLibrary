@@ -45,13 +45,13 @@ export const Login = () => {
       >
         <h2 className="text-lg font-bold">Login</h2>
         <input
-          className="w-full p-1  rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
+          className="w-full px-1 pt-1  rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
           type="email"
           placeholder="email"
           {...register("email", { required: true })}
         />
         <input
-          className="w-full p-1  rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
+          className="w-full px-1 pt-1 rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
           type="password"
           placeholder="password"
           {...register("password", { required: true })}

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export const Books = () => {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.books);
-  // const [isActive, setIsActive] = useState(false);
   const [clickedIndex, setClickedIndex] = useState();
 
   useEffect(() => {
@@ -15,9 +14,6 @@ export const Books = () => {
 
   const handleClick = (index) => {
     setClickedIndex(index);
-    // setIsActive((prev) => {
-    //   return !prev;
-    // });
   };
 
   return (

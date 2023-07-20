@@ -4,12 +4,13 @@ import { updateBook } from "../../redux/features/bookSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import { getBook } from "../../redux/features/bookSlice";
 import { useForm } from "react-hook-form";
+import { notify } from "../../toastify/index.js";
 
 export const UpdateBook = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { selectedBook, status } = useSelector((state) => state.books);
+  const { selectedBook, status, error } = useSelector((state) => state.books);
 
   const navigate = useNavigate();
 
@@ -30,14 +31,27 @@ export const UpdateBook = () => {
     let formData = new FormData();
     if (data.title) formData.append("title", data.title);
     if (data.book) formData.append("book", data.book[0]);
+    notify.loading();
+    if (!user) {
+      notify.error("Please login");
+      navigate("/login");
+    }
+    if (user?.id !== selectedBook.createdBy._id) {
+      notify.error("You cannot update, you haven't created this book");
+      navigate(-1);
+    }
     dispatch(updateBook({ id, formData }));
   };
 
   useEffect(() => {
-    if (!user) navigate("/Login");
-    if (user && user.id !== selectedBook.createdBy._id) navigate(-1);
-    if (isSubmitSuccessful && status === "fulfilled") navigate(`/books/${id}`);
-  }, [status, navigate, isSubmitSuccessful, id, user, selectedBook]);
+    if (isSubmitSuccessful && status === "fulfilled") {
+      notify.success("Successfully updated");
+      navigate(`/books/${id}`);
+    }
+    if (status === "rejected") {
+      notify.error(`Failed to upload, ${error}`);
+    }
+  }, [status, navigate, isSubmitSuccessful, id, error]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
@@ -59,13 +73,9 @@ export const UpdateBook = () => {
           className="file:cursor-pointer cursor-pointer w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
         />
 
-        {user && user.id === selectedBook.createdBy._id ? (
-          <button className="m-2 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md">
-            Update
-          </button>
-        ) : (
-          ""
-        )}
+        <button className="m-2 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md">
+          Update
+        </button>
       </form>
     </div>
   );

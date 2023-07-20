@@ -3,21 +3,34 @@ import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBook, getBook } from "../../redux/features/bookSlice";
 import { ViewFile } from "../../components/ViewFile";
+import { notify } from "../../toastify/index.js";
+import { useNavigate } from "react-router-dom";
 
 export const Book = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { selectedBook } = useSelector((state) => state.books);
+  const { selectedBook, status, error } = useSelector((state) => state.books);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) dispatch(getBook(id));
   }, [dispatch, id]);
 
-  const deleteHandler = (bookId) => {
-    dispatch(deleteBook(bookId));
+  const deleteHandler = async (bookId) => {
+    notify.loading();
+    await dispatch(deleteBook(bookId));
+    navigate(-1);
   };
 
+  useEffect(() => {
+    if (status === "fulfilled") {
+      notify.success("Successfully Deleted");
+    }
+    if (status === "rejected") {
+      notify.error(`Failed to delete, ${error}`);
+    }
+  }, [status, error, navigate]);
   return (
     <div className="px-24 flex flex-row justify-stretch items-start my-10">
       <div className="basis-1/2 max-w-[50%] flex flex-col mr-7 items-start justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl bg-[#dad9d9]">
