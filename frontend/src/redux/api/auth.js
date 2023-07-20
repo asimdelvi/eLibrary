@@ -6,7 +6,6 @@ export const BASE_URL =
     : process.env.REACT_APP_BASE_URL_PROD;
 
 const register = async (userData) => {
-  // try {
   const res = await axios.post(`${BASE_URL}/users/register`, userData);
   if (res.data) {
     localStorage.setItem("user", JSON.stringify(res.data));

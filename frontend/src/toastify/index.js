@@ -1,5 +1,6 @@
-import { toast } from "react-toastify";
+// Show toastify notification while loading, success, error while submitting form.
 
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 let notifyStatus;

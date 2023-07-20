@@ -22,11 +22,14 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
+  // When the user clicks the submit button, login api will be called
+  // toastify loading will start
   const onSubmit = (data) => {
     dispatch(login(data));
     notify.loading();
   };
 
+  // When the status changes, toastify will updates to success or rejected.
   useEffect(() => {
     if (isSubmitSuccessful && status === "fulfilled") {
       notify.success("Login Successful");

@@ -4,8 +4,6 @@ export const BASE_URL =
     ? process.env.REACT_APP_BASE_URL_LOCAL
     : process.env.REACT_APP_BASE_URL_PROD;
 
-console.log(process.env.NODE_ENV);
-
 const getAll = async () => {
   const res = await axios.get(`${BASE_URL}/books`);
   return res.data;

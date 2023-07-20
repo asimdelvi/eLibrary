@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import booksAPI from "../api/books";
 
 const initialState = {
-  // when reloading user value will null, so grabbing it from localStorage.
   books: [],
   status: "idle",
   error: null,
