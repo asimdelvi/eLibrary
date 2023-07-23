@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { notify } from "../../toastify/index.js";
+import { Input } from "../../components/Input.jsx";
 
 export const Login = () => {
   const {
@@ -47,17 +48,15 @@ export const Login = () => {
         className="flex p-2 h-[50%] flex-col max-width-[10rem] justify-around items-center border-[1px] border-gray-700 shadow-lg bg-[#dad9d9] rounded-xl"
       >
         <h2 className="text-lg font-bold">Login</h2>
-        <input
-          className="w-full px-1 pt-1  rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
+        <Input
           type="email"
+          formFunction={register("email", { required: true })}
           placeholder="email"
-          {...register("email", { required: true })}
         />
-        <input
-          className="w-full px-1 pt-1 rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
+        <Input
           type="password"
           placeholder="password"
-          {...register("password", { required: true })}
+          formFunction={register("password", { required: true })}
         />
         <button
           className="m-2 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md"
