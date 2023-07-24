@@ -9,10 +9,11 @@ import { Button } from "../../components/Button.jsx";
 
 export const Book = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { selectedBook, status, error } = useSelector((state) => state.books);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) dispatch(getBook(id));
