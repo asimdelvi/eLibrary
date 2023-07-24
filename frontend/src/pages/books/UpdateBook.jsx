@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getBook } from "../../redux/features/bookSlice";
 import { useForm } from "react-hook-form";
 import { notify } from "../../toastify/index.js";
+import { Input } from "../../components/Input.jsx";
 
 export const UpdateBook = () => {
   const { id } = useParams();
@@ -23,7 +24,11 @@ export const UpdateBook = () => {
     handleSubmit,
     formState: { isSubmitSuccessful },
   } = useForm({
-    defaultValues: { title: selectedBook.title, book: null },
+    defaultValues: {
+      title: selectedBook.title,
+      description: selectedBook.description || "",
+      book: null,
+    },
   });
 
   const onSubmit = (data) => {
@@ -31,6 +36,9 @@ export const UpdateBook = () => {
     let formData = new FormData();
     if (data.title) formData.append("title", data.title);
     if (data.book) formData.append("book", data.book[0]);
+    if (data.description) formData.append("description", data.description);
+    else if (data.description === "") formData.delete("description");
+
     notify.loading();
     if (!user) {
       notify.error("Please login");
@@ -60,17 +68,20 @@ export const UpdateBook = () => {
         className="flex p-2 h-[50%] flex-col max-width-[10rem] justify-around items-center border-[1px] border-gray-700 shadow-lg bg-[#dad9d9] rounded-xl"
       >
         <h2 className="text-lg font-bold">Update Book</h2>
-        <input
+        <Input
           type="text"
           placeholder="Title"
-          {...register("title")}
-          className="w-full p-1  rounded-lg focus:outline-none focus:border-[1px] focus:border-black"
+          formFunction={register("title")}
         />
-        <input
+        <Input
+          type="textarea"
+          placeholder="Description"
+          formFunction={register("description")}
+        />
+        <Input
           type="file"
           placeholder="Upload book"
-          {...register("book")}
-          className="file:cursor-pointer cursor-pointer w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white"
+          formFunction={register("book")}
         />
 
         <button className="m-2 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md">

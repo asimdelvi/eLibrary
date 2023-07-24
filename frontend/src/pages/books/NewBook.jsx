@@ -24,6 +24,7 @@ export const NewBook = () => {
   const onSubmit = async (data) => {
     let formData = new FormData();
     formData.append("title", data.title);
+    if (data?.description) formData.append("description", data.title);
     formData.append("book", data.book[0]);
     notify.loading();
     if (!user) {
@@ -49,13 +50,18 @@ export const NewBook = () => {
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex p-2 h-[50%] flex-col max-width-[10rem] justify-around items-center border-[1px] border-gray-700 shadow-lg bg-[#dad9d9] rounded-xl"
+        className="flex p-2 min-h-[50%] flex-col max-width-[10rem] justify-around items-center border-[1px] border-gray-700 shadow-lg bg-[#dad9d9] rounded-xl"
       >
         <h2 className="text-lg font-bold">Add Book</h2>
         <Input
           type="text"
           placeholder="Title"
           formFunction={register("title", { required: true })}
+        />
+        <Input
+          type="textarea"
+          placeholder="Description"
+          formFunction={register("description")}
         />
         <Input
           type="file"

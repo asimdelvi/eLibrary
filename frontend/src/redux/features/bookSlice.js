@@ -155,12 +155,13 @@ export const bookSlice = createSlice({
         state.status = "pending";
       })
       .addCase(updateBook.fulfilled, (state, action) => {
-        const { _id, title, pdfURL } = action.payload;
-        const bookToUpdate = state.books.find((book) => book._id === _id);
-        if (bookToUpdate) {
-          bookToUpdate.title = title;
-          bookToUpdate.pdfURL = pdfURL;
-        }
+        console.log(action.payload);
+        // const { _id, title, pdfURL } = action.payload;
+        // const bookToUpdate = state.books.find((book) => book._id === _id);
+        // if (bookToUpdate) {
+        //   bookToUpdate.title = title;
+        //   bookToUpdate.pdfURL = pdfURL;
+        // }
         state.selectedBook = action.payload;
         state.status = "fulfilled";
         state.error = null;
