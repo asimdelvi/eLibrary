@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { notify } from "../../toastify/index.js";
 import { Input } from "../../components/Input.jsx";
+import { Form } from "../../components/Form.jsx";
+import { Button } from "../../components/Button.jsx";
 
 export const Register = () => {
   const {
@@ -43,11 +45,7 @@ export const Register = () => {
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex p-2 h-[50%] flex-col max-width-[10rem] justify-around items-center border-[1px] border-gray-700 shadow-lg bg-[#dad9d9] rounded-xl"
-      >
-        <h2 className="text-lg font-bold">Register</h2>
+      <Form title="Register" formSubmitFunction={handleSubmit(onSubmit)}>
         <Input
           type="text"
           placeholder="username"
@@ -63,13 +61,8 @@ export const Register = () => {
           placeholder="password"
           formFunction={register("password", { required: true })}
         />
-        <button
-          className="m-2 rounded-lg bg-[#B59D9A] border-[#B59D9A] border-2  px-3 py-[6px] text-sm hover:shadow-md"
-          type="submit"
-        >
-          Register
-        </button>
-      </form>
+        <Button text="Register" variant="primary" />
+      </Form>
     </div>
   );
 };

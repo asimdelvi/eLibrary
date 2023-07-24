@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { TbBooks } from "react-icons/tb";
 import { BiBookAdd, BiHomeAlt2 } from "react-icons/bi";
+import { Button } from "./Button";
 
 export function NavBar() {
   return (
@@ -36,14 +37,10 @@ export function NavBar() {
       </div>
       <div>
         <NavLink to="/login">
-          <span className="rounded-xl bg-black border-black border-2 text-white px-3 py-[6px] text-sm hover:bg-gray-800">
-            Login
-          </span>
+          <Button text="Login" variant="primary" extraStyles="mr-1" />
         </NavLink>
         <NavLink to="/register">
-          <span className="ml-4 rounded-xl border-black border-2 px-3 py-[6px] text-sm hover:border-gray-600 hover:text-gray-800">
-            Register
-          </span>
+          <Button text="Register" variant="secondary" />
         </NavLink>
       </div>
     </nav>
