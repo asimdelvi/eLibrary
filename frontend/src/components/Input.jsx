@@ -9,6 +9,7 @@ export const Input = ({ type, placeholder, formFunction }) => {
       <textarea
         className={`${inputClass} m-1`}
         placeholder={placeholder}
+        {...formFunction}
       ></textarea>
     );
   } else {
