@@ -46,6 +46,8 @@
     ]
   },
   "devDependencies": {
-    "postcss": "^8.4.24"
+    "postcss": "^8.4.24",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.4.1"
   }
 }

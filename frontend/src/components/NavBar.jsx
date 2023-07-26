@@ -1,46 +1,39 @@
 import { NavLink } from "react-router-dom";
-import { TbBooks } from "react-icons/tb";
-import { BiBookAdd, BiHomeAlt2 } from "react-icons/bi";
-import { Button } from "./Button";
+// import { Button } from "./Button";
 
 export function NavBar() {
   return (
-    <nav className="px-20 flex items-center justify-between nav-background sticky z-40 top-0 py-4 border-0 rounded-none">
+    <nav className="px-20 py-5 flex items-center justify-between nav-background fixed z-40 top-0 border-0 rounded-none w-screen">
       <NavLink to="/">
-        <h1 className="text-2xl font-mono font-extrabold">eLibrary</h1>
+        <p className="text-3xl font-mono font-extrabold">eLibrary</p>
       </NavLink>
-      <div className="flex items-center">
-        <NavLink className="mr-4 group" to="/">
-          <div className="rounded-full flex">
-            <BiHomeAlt2 className="rounded-full bg-black p-[6px] box-content" />
-            <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
-              Home
-            </span>
+      <div className="p-[2px] flex items-center rounded-full border-2 border-black">
+        <NavLink to="/">
+          <div className="transition ease-in-out duration-300 rounded-full text-lg px-5 py-2 hover:bg-black hover:text-white">
+            HOME
           </div>
         </NavLink>
-        <NavLink className="mr-4 group" to="/books/all">
-          <div className="rounded-full flex">
-            <TbBooks className="rounded-full bg-black p-[6px] box-content" />
-            <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
-              Books
-            </span>
+        <NavLink to="/books/all">
+          <div className="transition ease-in-out duration-300 rounded-full text-lg px-5 py-2 hover:bg-black hover:text-white">
+            BOOKS
           </div>
         </NavLink>
-        <NavLink className="mr-4 group" to="/books/new">
-          <div className="rounded-full flex">
-            <BiBookAdd className="rounded-full bg-black p-[6px] box-content" />
-            <span className="animate-border pr-3 pl-5 py-[3px]  animate-nav">
-              New Book
-            </span>
+        <NavLink to="/books/new">
+          <div className="transition ease-in-out duration-300 rounded-full text-lg px-5 py-2 hover:bg-black hover:text-white">
+            NEW BOOK
           </div>
         </NavLink>
       </div>
       <div>
         <NavLink to="/login">
-          <Button text="Login" variant="primary" extraStyles="mr-1" />
+          <span className="transition ease-in-out duration-1000 delay-300 rounded-full border-2 font-semibold border-black text-base px-6 py-3 bg-black text-white anim_button mr-2">
+            LOGIN
+          </span>
         </NavLink>
         <NavLink to="/register">
-          <Button text="Register" variant="secondary" />
+          <span className="rounded-full border-2 font-semibold border-black border-dashed text-base px-6 py-3 anim_button">
+            REGISTER
+          </span>
         </NavLink>
       </div>
     </nav>

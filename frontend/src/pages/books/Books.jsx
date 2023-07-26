@@ -6,7 +6,7 @@ import { Button } from "../../components/Button.jsx";
 
 export const Books = () => {
   const baseClasses =
-    "transition ease-linear duration-700 flex flex-col items-center justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl bg-[#dad9d9]";
+    "flex flex-col items-start justify-start min-h-[10rem]  border-black  border-[2px] rounded-xl card";
   const standardCard = "cursor-pointer";
   const expandCard = "col-span-2";
 
@@ -24,7 +24,7 @@ export const Books = () => {
 
   return (
     <>
-      <div className="px-24 grid grid-cols-3 grid-flow-dense gap-12 my-10">
+      <div className="pt-[8%] px-24 bg-[#F1F1F1] grid grid-cols-3 grid-flow-dense gap-12 my-10">
         {books.map((book, index) => (
           <div
             key={index}
@@ -35,27 +35,25 @@ export const Books = () => {
             }
             onClick={() => handleClick(index)}
           >
-            <h2 className="text-lg font-bold px-7 py-2 text-clip">
+            <h2 className="text-2xl font-bold px-7 py-2 text-clip">
               {book.title}
             </h2>
 
-            {clickedIndex === index ? (
-              <>
-                <p className="text-lg px-7 pb-2 text-clip">
-                  {book.description || ""}
-                </p>
-                <div>
-                  <Link to={`/books/${book._id}`}>
-                    <Button text="View" variant="primary" extraStyles="mr-1" />
-                  </Link>
-                  <Link to={book.pdfURL} target="_blank">
-                    <Button text="Download" variant="secondary" />
-                  </Link>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
+            <p className="text-xl px-7 pb-1 card-text">
+              {book.description || ""}
+            </p>
+            <div>
+              <Link to={`/books/${book._id}`}>
+                <span className="transition ease-in-out duration-1000 delay-300 rounded-full border-2 font-semibold border-black text-base px-4 py-2 bg-black text-white anim_button mr-2">
+                  VIEW
+                </span>
+              </Link>
+              <Link to={book.pdfURL} target="_blank">
+                <span className="rounded-full border-2 font-semibold border-black border-dashed text-base px-4 py-2 anim_button">
+                  DOWNLOAD
+                </span>
+              </Link>
+            </div>
           </div>
         ))}
       </div>
