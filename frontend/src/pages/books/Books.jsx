@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../redux/features/bookSlice";
 import { Link } from "react-router-dom";
-import { Button } from "../../components/Button.jsx";
 
 export const Books = () => {
   const baseClasses =
-    "flex flex-col items-start justify-start min-h-[10rem]  border-black  border-[2px] rounded-xl card";
-  const standardCard = "cursor-pointer";
-  const expandCard = "col-span-2";
-
+    " flex flex-row h-[10rem]  border-black  border-[2px] rounded-xl card";
+  const standardCard = "justify-center items-center cursor-pointer";
+  const expandCard = "items-center justify-between col-span-2 ";
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.books);
   const [clickedIndex, setClickedIndex] = useState();
@@ -24,7 +22,7 @@ export const Books = () => {
 
   return (
     <>
-      <div className="pt-[8%] px-24 bg-[#F1F1F1] grid grid-cols-3 grid-flow-dense gap-12 my-10">
+      <div className="pt-[8%] px-24 grid grid-cols-4 grid-flow-dense gap-12 my-10">
         {books.map((book, index) => (
           <div
             key={index}
@@ -35,25 +33,32 @@ export const Books = () => {
             }
             onClick={() => handleClick(index)}
           >
-            <h2 className="text-2xl font-bold px-7 py-2 text-clip">
-              {book.title}
-            </h2>
-
-            <p className="text-xl px-7 pb-1 card-text">
-              {book.description || ""}
-            </p>
-            <div>
-              <Link to={`/books/${book._id}`}>
-                <span className="transition ease-in-out duration-1000 delay-300 rounded-full border-2 font-semibold border-black text-base px-4 py-2 bg-black text-white anim_button mr-2">
-                  VIEW
-                </span>
-              </Link>
-              <Link to={book.pdfURL} target="_blank">
-                <span className="rounded-full border-2 font-semibold border-black border-dashed text-base px-4 py-2 anim_button">
-                  DOWNLOAD
-                </span>
-              </Link>
+            <div className="flex flex-col justify-center items-center my-5">
+              <h2 className="text-2xl font-bold px-7 py-2 ">{book.title}</h2>
+              {clickedIndex === index ? (
+                <p className="text-xl px-7 pb-4  card-text">
+                  {book.description || ""}
+                </p>
+              ) : (
+                ""
+              )}
             </div>
+            {clickedIndex === index ? (
+              <div className="px-7 flex flex-col justify-center h-[100%] border-l-2 border-dashed border-black">
+                <Link to={`/books/${book._id}`}>
+                  <div className="mb-2 rounded-full text-center border-2 font-semibold border-black text-base px-4 py-2 bg-black text-white anim_button mr-2">
+                    VIEW
+                  </div>
+                </Link>
+                <Link to={book.pdfURL} target="_blank">
+                  <div className="rounded-full border-2 font-semibold border-black border-dashed text-base px-4 py-2 anim_button">
+                    DOWNLOAD
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         ))}
       </div>
