@@ -44,8 +44,8 @@ export const Register = () => {
   }, [status, isSubmitSuccessful, navigate, error]);
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-65px)]">
-      <Form title="Register" formSubmitFunction={handleSubmit(onSubmit)}>
+    <div className="pt-[11%] flex flex-col justify-center items-center">
+      <Form title="REGISTER" formSubmitFunction={handleSubmit(onSubmit)}>
         <Input
           type="text"
           placeholder="username"
@@ -61,7 +61,7 @@ export const Register = () => {
           placeholder="password"
           formFunction={register("password", { required: true })}
         />
-        <Button text="Register" variant="primary" />
+        <Button text="REGISTER" variant="primary" />
       </Form>
     </div>
   );

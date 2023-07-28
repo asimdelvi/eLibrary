@@ -53,8 +53,8 @@ export const NewBook = () => {
   }, [status, error, navigate, isSubmitSuccessful, newBookId, user]);
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-65px)]">
-      <Form title="Add Book" formSubmitFunction={handleSubmit(onSubmit)}>
+    <div className="pt-[11%] flex flex-col justify-center items-center">
+      <Form title="ADD BOOK" formSubmitFunction={handleSubmit(onSubmit)}>
         <Input
           type="text"
           placeholder="Title"
@@ -70,7 +70,7 @@ export const NewBook = () => {
           placeholder="Upload book"
           formFunction={register("book", { required: true })}
         />
-        <Button text="Add" variant="primary" />
+        <Button text="ADD" variant="primary" />
       </Form>
     </div>
   );

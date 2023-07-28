@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Home = () => {
   return (
     <>
-      <div className="pt-[12%]  px-20 flex flex-col justify-start bg-[#F1F1F1] h-[100vh] items-center z-20 relative hero-background">
+      <div className="pt-[12%]  px-20 flex flex-col justify-start h-[100vh] items-center z-20 relative hero-background">
         <h1 className="text-8xl text-center font-black mb-10">
           Let's <span className="text-gradient text-8xl">Read</span> Together
         </h1>

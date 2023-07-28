@@ -1,10 +1,10 @@
 export const Button = ({ text, variant, onClickHandler, extraStyles = "" }) => {
   const baseClasses =
-    "rounded-lg border-2 px-3 py-[4px] text-sm hover:shadow-md";
+    "mt-2 rounded-full font-semibold border-black text-lg border-2 px-8 py-2 anim_button";
 
   const variantName = {
-    primary: "bg-[#B59D9A] border-[#B59D9A]",
-    secondary: "bg-black border-black text-white",
+    primary: " bg-black text-white",
+    secondary: "border-dashed",
   };
 
   return (

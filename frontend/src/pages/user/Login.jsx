@@ -44,8 +44,8 @@ export const Login = () => {
   }, [status, navigate, isSubmitSuccessful, error]);
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-65px)]">
-      <Form title="Login" formSubmitFunction={handleSubmit(onSubmit)}>
+    <div className="pt-[11%] flex flex-col justify-center items-center">
+      <Form title="LOGIN" formSubmitFunction={handleSubmit(onSubmit)}>
         <Input
           type="email"
           formFunction={register("email", { required: true })}
@@ -56,7 +56,7 @@ export const Login = () => {
           placeholder="password"
           formFunction={register("password", { required: true })}
         />
-        <Button text="Login" variant="primary" />
+        <Button text="LOGIN" variant="primary" />
       </Form>
     </div>
   );

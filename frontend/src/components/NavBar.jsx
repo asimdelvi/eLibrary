@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-// import { Button } from "./Button";
 
 export function NavBar() {
   return (
@@ -7,7 +6,7 @@ export function NavBar() {
       <NavLink to="/">
         <p className="text-3xl font-mono font-extrabold">eLibrary</p>
       </NavLink>
-      <div className="p-[2px] flex items-center rounded-full border-2 border-black">
+      <div className="p-[2px] flex items-center rounded-full border-2 border-black nav-bar">
         <NavLink to="/">
           <div className="transition ease-in-out duration-300 rounded-full text-lg px-5 py-2 hover:bg-black hover:text-white">
             HOME
@@ -26,7 +25,7 @@ export function NavBar() {
       </div>
       <div>
         <NavLink to="/login">
-          <span className="transition ease-in-out duration-1000 delay-300 rounded-full border-2 font-semibold border-black text-base px-6 py-3 bg-black text-white anim_button mr-2">
+          <span className="rounded-full border-2 font-semibold border-black text-base px-6 py-3 bg-black text-white anim_button mr-2">
             LOGIN
           </span>
         </NavLink>

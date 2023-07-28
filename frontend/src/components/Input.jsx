@@ -1,8 +1,8 @@
 export const Input = ({ type, placeholder, formFunction }) => {
   const inputClass =
-    "w-full p-1 rounded-lg focus:outline-none focus:border-[1px] focus:border-black";
+    "w-full p-2 m-2 text-lg border-dashed border-2 border-black rounded-lg focus:outline-none focus:border-[2px] focus:border-black focus:border-solid";
   const fileInputClass =
-    "file:cursor-pointer cursor-pointer w-full file:bg-[#b59d9aa8] file:text-sm file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white";
+    "file:cursor-pointer m-2 border-dashed border-2 border-black cursor-pointer w-full file:bg-[#DCDCDC] file:text-lg file:p-2 file:border-0 file:rounded-lg rounded-lg bg-white";
 
   if (type === "textarea") {
     return (
