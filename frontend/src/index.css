@@ -94,6 +94,7 @@
   .form {
     box-shadow: 0 4px 0 #141414;
   }
+
   .nav-bar .active div {
     @apply font-bold;
   }

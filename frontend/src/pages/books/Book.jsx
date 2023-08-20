@@ -35,11 +35,9 @@ export const Book = () => {
   }, [status, error, navigate]);
 
   return (
-    <div className="px-24 flex flex-row justify-stretch items-start my-10">
-      <div className="basis-1/2 max-w-[50%] flex flex-col mr-7 items-start justify-center min-h-[10rem]  border-gray-700 border-[1px] shadow-xl rounded-xl bg-[#dad9d9]">
-        <h2 className="text-lg px-7 pt-2 text-clip font-bold">
-          {selectedBook.title}
-        </h2>
+    <div className="px-24 flex flex-row justify-stretch items-start py-[12%]">
+      <div className="basis-1/2 max-w-[50%] flex flex-col mr-7 items-start justify-center min-h-[10rem]  border-black border-2 rounded-3xl form py-2">
+        <h2 className="text-2xl font-bold px-7 py-2">{selectedBook.title}</h2>
         <p className="text-lg px-7 pb-2 text-clip">
           {selectedBook.description || ""}
         </p>
