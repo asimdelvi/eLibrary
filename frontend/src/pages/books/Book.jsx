@@ -13,7 +13,7 @@ export const Book = () => {
 
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { selectedBook, status, error } = useSelector((state) => state.books);
+  const { selectedBook, deleteStatus, error } = useSelector((state) => state.books);
 
   useEffect(() => {
     if (id) dispatch(getBook(id));
@@ -26,13 +26,13 @@ export const Book = () => {
   };
 
   useEffect(() => {
-    if (status === "fulfilled") {
+    if (deleteStatus === "fulfilled") {
       notify.success("Successfully Deleted");
     }
-    if (status === "rejected") {
+    if (deleteStatus === "rejected") {
       notify.error(`Failed to delete, ${error}`);
     }
-  }, [status, error, navigate]);
+  }, [deleteStatus, error, navigate]);
 
   return (
     <div className="px-24 flex flex-row justify-stretch items-start py-[12%]">

@@ -13,7 +13,9 @@ export const UpdateBook = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { selectedBook, status, error } = useSelector((state) => state.books);
+  const { selectedBook, updateStatus, error } = useSelector(
+    (state) => state.books
+  );
 
   const navigate = useNavigate();
 
@@ -54,14 +56,14 @@ export const UpdateBook = () => {
   };
 
   useEffect(() => {
-    if (isSubmitSuccessful && status === "fulfilled") {
+    if (isSubmitSuccessful && updateStatus === "fulfilled") {
       notify.success("Successfully updated");
       navigate(`/books/${id}`);
     }
-    if (status === "rejected") {
+    if (updateStatus === "rejected") {
       notify.error(`Failed to upload, ${error}`);
     }
-  }, [status, navigate, isSubmitSuccessful, id, error]);
+  }, [updateStatus, navigate, isSubmitSuccessful, id, error]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-65px)]">

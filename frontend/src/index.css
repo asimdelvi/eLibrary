@@ -77,11 +77,12 @@
     position: absolute;
     box-shadow: 0 4px 0 #141414;
     transition: transform 0.2s;
-    left: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .btn:hover {
-    transform: translateY(-2px);
+    transform: translate(-50%, -52%);
     box-shadow: 0 5px 0 #141414;
   }
 

@@ -15,7 +15,7 @@ export const NewBook = () => {
     formState: { isSubmitSuccessful, errors },
   } = useForm();
 
-  const { status } = useSelector((state) => state.books);
+  const { createStatus } = useSelector((state) => state.books);
   const bookError = useSelector((state) => state.books.error);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -44,14 +44,14 @@ export const NewBook = () => {
   };
 
   useEffect(() => {
-    if (isSubmitSuccessful && status === "fulfilled") {
+    if (isSubmitSuccessful && createStatus === "fulfilled") {
       notify.success("Successfully Uploaded");
       navigate(`/books/${newBookId}`);
     }
-    if (status === "rejected") {
+    if (createStatus === "rejected") {
       notify.error(`Failed to upload, ${bookError}`);
     }
-  }, [status, bookError, navigate, isSubmitSuccessful, newBookId, user]);
+  }, [createStatus, bookError, navigate, isSubmitSuccessful, newBookId, user]);
 
   return (
     <div className="pt-[11%] flex flex-col justify-center items-center">

@@ -3,7 +3,11 @@ import booksAPI from "../api/books";
 
 const initialState = {
   books: [],
-  status: "idle",
+  getBooksStatus: "idle",
+  getBookStatus: "idle",
+  createStatus: "idle",
+  updateStatus: "idle",
+  deleteStatus: "idle",
   error: null,
   selectedBook: {
     _id: 0,
@@ -102,72 +106,65 @@ export const bookSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getBooks.pending, (state, action) => {
-        state.status = "pending";
+        state.getBooksStatus = "pending";
       })
       .addCase(getBooks.fulfilled, (state, action) => {
         state.books = action.payload;
-        state.status = "fulfilled";
+        state.getBooksStatus = "fulfilled";
         state.error = null;
       })
       .addCase(getBooks.rejected, (state, action) => {
-        state.status = "rejected";
+        state.getBooksStatus = "rejected";
         state.error = action.payload;
       })
       .addCase(getBook.pending, (state, action) => {
-        state.status = "pending";
+        state.getBookStatus = "pending";
       })
       .addCase(getBook.fulfilled, (state, action) => {
         state.selectedBook = action.payload;
-        state.status = "fulfilled";
+        state.getBookStatus = "fulfilled";
         state.error = null;
       })
       .addCase(getBook.rejected, (state, action) => {
-        state.status = "rejected";
+        state.getBookStatus = "rejected";
         state.error = action.payload;
       })
       .addCase(createBook.pending, (state, action) => {
-        state.status = "pending";
+        state.createStatus = "pending";
       })
       .addCase(createBook.fulfilled, (state, action) => {
         state.books.push(action.payload);
-        state.status = "fulfilled";
+        state.createStatus = "fulfilled";
         state.error = null;
       })
       .addCase(createBook.rejected, (state, action) => {
-        state.status = "rejected";
+        state.createStatus = "rejected";
         state.error = action.payload;
       })
       .addCase(deleteBook.pending, (state, action) => {
-        state.status = "pending";
+        state.deleteStatus = "pending";
       })
       .addCase(deleteBook.fulfilled, (state, action) => {
-        state.books = state.books.filter(
+        state.deleteStatus = state.books.filter(
           (book) => book.id !== action.payload.id
         );
-        state.status = "fulfilled";
+        state.deleteStatus = "fulfilled";
         state.error = null;
       })
       .addCase(deleteBook.rejected, (state, action) => {
-        state.status = "rejected";
+        state.deleteStatus = "rejected";
         state.error = action.payload;
       })
       .addCase(updateBook.pending, (state, action) => {
-        state.status = "pending";
+        state.updateStatus = "pending";
       })
       .addCase(updateBook.fulfilled, (state, action) => {
-        console.log(action.payload);
-        // const { _id, title, pdfURL } = action.payload;
-        // const bookToUpdate = state.books.find((book) => book._id === _id);
-        // if (bookToUpdate) {
-        //   bookToUpdate.title = title;
-        //   bookToUpdate.pdfURL = pdfURL;
-        // }
         state.selectedBook = action.payload;
-        state.status = "fulfilled";
+        state.updateStatus = "fulfilled";
         state.error = null;
       })
       .addCase(updateBook.rejected, (state, action) => {
-        state.status = "rejected";
+        state.updateStatus = "rejected";
         state.error = action.payload;
       });
   },
