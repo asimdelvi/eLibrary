@@ -81,7 +81,7 @@ export const UpdateBook = () => {
           placeholder="Upload book"
           formFunction={register("book")}
         />
-        <Button text="Register" variant="primary" />
+        <Button text="Update" variant="primary" />
       </Form>
     </div>
   );

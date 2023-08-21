@@ -27,13 +27,12 @@ app.use(cors(corsOptions));
 // * Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(fileUpload());
 
 // * Routes
 app.use("/api/books/", booksRouter);
 app.use("/api/users/", userRouter);
 
-// TODO: custom error handler, cors, body-parser.
+// TODO: custom error handler, body-parser.
 
 // * Error Middleware
 app.all("*", (req, res, next) => {
