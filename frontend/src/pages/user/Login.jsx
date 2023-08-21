@@ -12,7 +12,7 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitSuccessful },
+    formState: { isSubmitSuccessful, errors },
   } = useForm({
     defaultValues: {
       email: "",
@@ -50,11 +50,13 @@ export const Login = () => {
           type="email"
           formFunction={register("email", { required: true })}
           placeholder="email"
+          errors={errors.email}
         />
         <Input
           type="password"
           placeholder="password"
           formFunction={register("password", { required: true })}
+          errors={errors.password}
         />
         <Button text="LOGIN" variant="primary" />
       </Form>

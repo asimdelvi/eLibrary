@@ -12,10 +12,11 @@ export const NewBook = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitSuccessful },
+    formState: { isSubmitSuccessful, errors },
   } = useForm();
 
-  const { status, error } = useSelector((state) => state.books);
+  const { status } = useSelector((state) => state.books);
+  const bookError = useSelector((state) => state.books.error);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -48,9 +49,9 @@ export const NewBook = () => {
       navigate(`/books/${newBookId}`);
     }
     if (status === "rejected") {
-      notify.error(`Failed to upload, ${error}`);
+      notify.error(`Failed to upload, ${bookError}`);
     }
-  }, [status, error, navigate, isSubmitSuccessful, newBookId, user]);
+  }, [status, bookError, navigate, isSubmitSuccessful, newBookId, user]);
 
   return (
     <div className="pt-[11%] flex flex-col justify-center items-center">
@@ -59,16 +60,19 @@ export const NewBook = () => {
           type="text"
           placeholder="Title"
           formFunction={register("title", { required: true })}
+          errors={errors.title}
         />
         <Input
           type="textarea"
           placeholder="Description"
           formFunction={register("description")}
+          errors={errors.description}
         />
         <Input
           type="file"
           placeholder="Upload book"
           formFunction={register("book", { required: true })}
+          errors={errors.book}
         />
         <Button text="ADD" variant="primary" />
       </Form>
