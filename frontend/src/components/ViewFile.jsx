@@ -18,7 +18,7 @@ export const ViewFile = ({ filePath }) => {
   };
 
   return (
-    <div className="border-black border-2 rounded-3xl p-1 flex flex-col items-center bg-white">
+    <div className="border-black border-2 rounded-3xl w-fit p-1 pb-3 flex flex-col items-center bg-white">
       <div className="border-black rounded-3xl border-2">
         <button
           disabled={pageNumber <= 1}

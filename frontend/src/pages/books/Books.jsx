@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 
 export const Books = () => {
   const baseClasses =
-    " flex flex-row h-[10rem]  border-black  border-[2px] rounded-xl card";
+    " flex s:flex-row xs:flex-col s:h-[10rem] xs:min-h-[10rem] border-black  border-[2px] rounded-xl card";
   const standardCard = "justify-center items-center cursor-pointer";
-  const expandCard = "items-center justify-between col-span-2 ";
+  const expandCard =
+    "items-center justify-between s:col-span-2 xs:col-auto xs:row-span-4 s:row-auto";
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.books);
   const [clickedIndex, setClickedIndex] = useState();
@@ -22,7 +23,7 @@ export const Books = () => {
 
   return (
     <>
-      <div className="pt-[8%] px-24 grid grid-cols-4 grid-flow-dense gap-12 my-10">
+      <div className="pt-[8%] xl:px-80 xs:px-10 s:px-24 grid xs:grid-cols-1 l:grid-cols-4 m:grid-cols-3 s:grid-cols-2  grid-flow-dense gap-12 my-10">
         {books.map((book, index) => (
           <div
             key={index}
@@ -44,7 +45,7 @@ export const Books = () => {
               )}
             </div>
             {clickedIndex === index ? (
-              <div className="px-7 flex flex-col justify-center h-[100%] border-l-2 border-dashed border-black">
+              <div className="px-7 flex flex-col s:flex-col xs:flex-row justify-center h-[100%] xs:border-0 s:border-l-2 border-dashed border-black">
                 <Link to={`/books/${book._id}`}>
                   <div className="mb-2 rounded-full text-center border-2 font-semibold border-black text-base px-4 py-2 bg-black text-white anim_button mr-2">
                     VIEW

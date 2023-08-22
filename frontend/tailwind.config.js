@@ -6,7 +6,13 @@ module.exports = {
     "./src/pages/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    screens: {
+      xl: "1690px",
+      l: "1400px",
+      m: "900px",
+      s: "670px",
+      xs: "0px",
+    },
   },
   plugins: [],
 };

@@ -13,7 +13,9 @@ export const Book = () => {
 
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { selectedBook, deleteStatus, error } = useSelector((state) => state.books);
+  const { selectedBook, deleteStatus, error } = useSelector(
+    (state) => state.books
+  );
 
   useEffect(() => {
     if (id) dispatch(getBook(id));
@@ -35,8 +37,8 @@ export const Book = () => {
   }, [deleteStatus, error, navigate]);
 
   return (
-    <div className="px-24 flex flex-row justify-stretch items-start py-[12%]">
-      <div className="basis-1/2 max-w-[50%] flex flex-col mr-7 items-start justify-center min-h-[10rem]  border-black border-2 rounded-3xl form py-2">
+    <div className="xl:px-80 xs:px-10 s:px-24 flex flex-col m:flex-row justify-stretch items-start py-[12%]">
+      <div className="m:basis-1/2 w-[100%] m:max-w-[50%] mb-5 flex-col m:mr-7 items-start justify-center m:min-h-[10rem]  border-black border-2 rounded-3xl form py-2">
         <h2 className="text-2xl font-bold px-7 py-2">{selectedBook.title}</h2>
         <p className="text-lg px-7 pb-2 text-clip">
           {selectedBook.description || ""}
@@ -63,7 +65,7 @@ export const Book = () => {
           )}
         </div>
       </div>
-      <ViewFile className="basis-1/2" filePath={selectedBook.pdfURL} />
+      <ViewFile className="m:basis-1/2" filePath={selectedBook.pdfURL} />
     </div>
   );
 };
