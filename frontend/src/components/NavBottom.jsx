@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 export function NavBottom({ position = "fixed bottom-0" }) {
   return (
     <div
-      className={`visible m:hidden p-[2px] rounded-none flex items-center w-screen justify-between nav-background nav-bar-bottom nav-bar ${position}`}
+      className={`visible m:hidden py-1 px-3 rounded-none flex items-center w-screen justify-between nav-background nav-bar-bottom nav-bar ${position}`}
     >
       <NavLink to="/">
         <div className="transition ease-in-out duration-300 rounded-xl text-sm px-5 py-2 ">
