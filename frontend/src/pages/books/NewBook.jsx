@@ -7,6 +7,7 @@ import { notify } from "../../toastify/index.js";
 import { Input } from "../../components/Input.jsx";
 import { Form } from "../../components/Form.jsx";
 import { Button } from "../../components/Button.jsx";
+import { NavBar } from "../../components/NavBar";
 
 export const NewBook = () => {
   const {
@@ -54,28 +55,31 @@ export const NewBook = () => {
   }, [createStatus, bookError, navigate, isSubmitSuccessful, newBookId, user]);
 
   return (
-    <div className="pt-[11%] flex flex-col justify-center items-center">
-      <Form title="ADD BOOK" formSubmitFunction={handleSubmit(onSubmit)}>
-        <Input
-          type="text"
-          placeholder="Title"
-          formFunction={register("title", { required: true })}
-          errors={errors.title}
-        />
-        <Input
-          type="textarea"
-          placeholder="Description"
-          formFunction={register("description")}
-          errors={errors.description}
-        />
-        <Input
-          type="file"
-          placeholder="Upload book"
-          formFunction={register("book", { required: true })}
-          errors={errors.book}
-        />
-        <Button text="ADD" variant="primary" />
-      </Form>
+    <div className="h-screen flex flex-col">
+      <NavBar />
+      <div className="flex flex-col items-center m-auto">
+        <Form title="ADD BOOK" formSubmitFunction={handleSubmit(onSubmit)}>
+          <Input
+            type="text"
+            placeholder="Title"
+            formFunction={register("title", { required: true })}
+            errors={errors.title}
+          />
+          <Input
+            type="textarea"
+            placeholder="Description"
+            formFunction={register("description")}
+            errors={errors.description}
+          />
+          <Input
+            type="file"
+            placeholder="Upload book"
+            formFunction={register("book", { required: true })}
+            errors={errors.book}
+          />
+          <Button text="ADD" variant="primary" />
+        </Form>
+      </div>
     </div>
   );
 };

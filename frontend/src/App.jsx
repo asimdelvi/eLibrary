@@ -11,12 +11,10 @@ import { NewBook } from "./pages/books/NewBook";
 import { Book } from "./pages/books/Book";
 import { Home } from "./pages/books/Home";
 import { UpdateBook } from "./pages/books/UpdateBook";
-import { NavBar } from "./components/NavBar";
 
 function App() {
   return (
     <>
-      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books/all" element={<Books />} />

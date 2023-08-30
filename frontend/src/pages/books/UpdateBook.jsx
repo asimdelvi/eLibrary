@@ -8,6 +8,7 @@ import { notify } from "../../toastify/index.js";
 import { Input } from "../../components/Input.jsx";
 import { Form } from "../../components/Form.jsx";
 import { Button } from "../../components/Button.jsx";
+import { NavBar } from "../../components/NavBar";
 
 export const UpdateBook = () => {
   const { id } = useParams();
@@ -66,25 +67,29 @@ export const UpdateBook = () => {
   }, [updateStatus, navigate, isSubmitSuccessful, id, error]);
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-65px)]">
-      <Form title="Update Book" formSubmitFunction={handleSubmit(onSubmit)}>
-        <Input
-          type="text"
-          placeholder="Title"
-          formFunction={register("title")}
-        />
-        <Input
-          type="textarea"
-          placeholder="Description"
-          formFunction={register("description")}
-        />
-        <Input
-          type="file"
-          placeholder="Upload book"
-          formFunction={register("book")}
-        />
-        <Button text="Update" variant="primary" />
-      </Form>
+    <div className="h-screen flex flex-col">
+      <NavBar />
+      <div className="flex flex-col items-center m-auto">
+        {" "}
+        <Form title="Update Book" formSubmitFunction={handleSubmit(onSubmit)}>
+          <Input
+            type="text"
+            placeholder="Title"
+            formFunction={register("title")}
+          />
+          <Input
+            type="textarea"
+            placeholder="Description"
+            formFunction={register("description")}
+          />
+          <Input
+            type="file"
+            placeholder="Upload book"
+            formFunction={register("book")}
+          />
+          <Button text="Update" variant="primary" />
+        </Form>
+      </div>
     </div>
   );
 };

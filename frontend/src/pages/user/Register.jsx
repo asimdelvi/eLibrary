@@ -8,6 +8,7 @@ import { notify } from "../../toastify/index.js";
 import { Input } from "../../components/Input.jsx";
 import { Form } from "../../components/Form.jsx";
 import { Button } from "../../components/Button.jsx";
+import { NavBar } from "../../components/NavBar";
 
 export const Register = () => {
   const {
@@ -44,28 +45,31 @@ export const Register = () => {
   }, [status, isSubmitSuccessful, navigate, error]);
 
   return (
-    <div className="pt-[11%] flex flex-col justify-center items-center">
-      <Form title="REGISTER" formSubmitFunction={handleSubmit(onSubmit)}>
-        <Input
-          type="text"
-          placeholder="username"
-          formFunction={register("username", { required: true })}
-          errors={errors.username}
-        />
-        <Input
-          type="email"
-          placeholder="email"
-          formFunction={register("email", { required: true })}
-          errors={errors.email}
-        />
-        <Input
-          type="password"
-          placeholder="password"
-          formFunction={register("password", { required: true })}
-          errors={errors.password}
-        />
-        <Button text="REGISTER" variant="primary" />
-      </Form>
+    <div className="h-screen flex flex-col">
+      <NavBar />
+      <div className="flex flex-col items-center m-auto">
+        <Form title="REGISTER" formSubmitFunction={handleSubmit(onSubmit)}>
+          <Input
+            type="text"
+            placeholder="username"
+            formFunction={register("username", { required: true })}
+            errors={errors.username}
+          />
+          <Input
+            type="email"
+            placeholder="email"
+            formFunction={register("email", { required: true })}
+            errors={errors.email}
+          />
+          <Input
+            type="password"
+            placeholder="password"
+            formFunction={register("password", { required: true })}
+            errors={errors.password}
+          />
+          <Button text="REGISTER" variant="primary" />
+        </Form>
+      </div>
     </div>
   );
 };

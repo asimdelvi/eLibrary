@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../redux/features/bookSlice";
 import { Link } from "react-router-dom";
+import { NavBar } from "../../components/NavBar";
 
 export const Books = () => {
   const baseClasses =
@@ -23,6 +24,7 @@ export const Books = () => {
 
   return (
     <>
+      <NavBar position="fixed top-0" />
       <div className="pt-[8%] xl:px-80 xs:px-10 s:px-24 grid xs:grid-cols-1 l:grid-cols-4 m:grid-cols-3 s:grid-cols-2  grid-flow-dense gap-12 my-10">
         {books.map((book, index) => (
           <div

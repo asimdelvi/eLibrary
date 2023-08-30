@@ -55,11 +55,6 @@
   }
 
   .text-gradient {
-    /* font-size: 72px;
-    background: linear-gradient(90deg, #000, #b59d9a); */
-    /*background-clip: text;
-    -webkit-text-fill-color: transparent; */
-
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: #000;

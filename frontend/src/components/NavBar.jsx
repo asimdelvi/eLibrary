@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 
-export function NavBar() {
+export function NavBar({ position = "static" }) {
   return (
-    <nav className="px-20 xl:px-80 py-5 flex items-center justify-between nav-background fixed z-40 top-0 border-0 rounded-none w-screen">
+    <nav
+      className={`px-20 xl:px-80 py-5 flex items-center justify-between nav-background z-20 border-0 rounded-none w-screen ${position}`}
+    >
       <NavLink to="/">
         <p className="text-3xl font-mono font-extrabold">eLibrary</p>
       </NavLink>
