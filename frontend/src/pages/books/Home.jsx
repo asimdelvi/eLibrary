@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
+import { NavBottom } from "../../components/NavBottom";
 
 export const Home = () => {
   return (
     <div className="h-screen flex flex-col">
       <NavBar />
-      <div className="px-20 flex flex-col items-center m-auto">
+      <div className="m:px-20 flex flex-col items-center m-auto">
         <h1 className="text-6xl s:text-8xl text-center font-black mb-10">
           Let's <span className="text-gradient text-6xl s:text-8xl">Read</span>{" "}
           Together
@@ -25,6 +26,7 @@ export const Home = () => {
         </Link>
         <div className="my-6 py-7"></div>
       </div>
+      <NavBottom />
     </div>
   );
 };

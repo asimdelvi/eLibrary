@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../redux/features/bookSlice";
 import { Link } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
+import { NavBottom } from "../../components/NavBottom";
 
 export const Books = () => {
   const baseClasses =
@@ -65,6 +66,7 @@ export const Books = () => {
           </div>
         ))}
       </div>
+      <NavBottom />
     </>
   );
 };

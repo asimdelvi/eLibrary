@@ -7,6 +7,7 @@ import { notify } from "../../toastify/index.js";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button.jsx";
 import { NavBar } from "../../components/NavBar";
+import { NavBottom } from "../../components/NavBottom";
 
 export const Book = () => {
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ export const Book = () => {
         </div>
         <ViewFile className="m:basis-1/2" filePath={selectedBook.pdfURL} />
       </div>
+      <NavBottom />
     </>
   );
 };

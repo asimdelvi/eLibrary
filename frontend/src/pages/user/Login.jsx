@@ -8,6 +8,7 @@ import { Input } from "../../components/Input.jsx";
 import { Button } from "../../components/Button.jsx";
 import { Form } from "../../components/Form.jsx";
 import { NavBar } from "../../components/NavBar";
+import { NavBottom } from "../../components/NavBottom";
 
 export const Login = () => {
   const {
@@ -64,6 +65,7 @@ export const Login = () => {
           <Button text="LOGIN" variant="primary" />
         </Form>
       </div>
+      <NavBottom />
     </div>
   );
 };

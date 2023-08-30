@@ -95,6 +95,9 @@
     @apply font-bold;
   }
 
+  .nav-bar-bottom .active div {
+    @apply bg-black text-white;
+  }
   .react-pdf__Page__canvas {
     margin: 0 auto;
     width: 80% !important;
