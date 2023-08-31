@@ -83,8 +83,6 @@
 
   .card {
     box-shadow: -7px 0 0 #141414;
-    /* box-shadow: 0 4px 0 #141414;
-    transition: transform 0.2s; */
   }
 
   .form {
@@ -98,9 +96,28 @@
   .nav-bar-bottom .active div {
     @apply bg-black text-white;
   }
+
   .react-pdf__Page__canvas {
     margin: 0 auto;
     width: 80% !important;
     height: 100% !important;
+  }
+
+  .loader {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #000;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
