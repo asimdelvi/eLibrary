@@ -8,10 +8,11 @@ import { Spinner } from "../../components/Spinner";
 
 export const Books = () => {
   const baseClasses =
-    " flex s:flex-row xs:flex-col s:h-[10rem] xs:min-h-[10rem] border-black  border-[2px] rounded-xl card";
+    "flex s:flex-row xs:flex-col s:h-[10rem] xs:min-h-[10rem] border-black  border-[2px] rounded-xl card";
   const standardCard = "justify-center items-center cursor-pointer";
   const expandCard =
     "items-center justify-between s:col-span-2 xs:col-auto xs:row-span-4 s:row-auto";
+
   const dispatch = useDispatch();
   const { books, getBooksStatus } = useSelector((state) => state.books);
   const [clickedIndex, setClickedIndex] = useState();
@@ -71,7 +72,6 @@ export const Books = () => {
           ))}
         </section>
       )}
-
       <NavBottom />
     </>
   );

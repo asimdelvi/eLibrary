@@ -32,15 +32,15 @@ export const NewBook = () => {
     if (data.description !== "")
       formData.append("description", data.description);
     formData.append("book", data.book[0]);
-    console.log(data);
-    console.log(formData);
+
     notify.loading();
     if (!user) {
       notify.error("Please login or register");
       navigate("/login");
     }
+
     const response = await dispatch(createBook(formData));
-    console.log(response);
+
     if (response && response.payload && response.payload._id)
       setNewBookId(response.payload._id);
   };

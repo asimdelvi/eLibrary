@@ -49,7 +49,6 @@ export const updateBook = async (req, res) => {
     await cloudinary.uploader.destroy(book.publicID);
     book.pdfURL = path;
     book.publicID = filename;
-    console.log(req.file);
   }
   await book.save();
 

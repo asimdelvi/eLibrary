@@ -38,7 +38,6 @@ export const UpdateBook = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     let formData = new FormData();
     if (data.title) formData.append("title", data.title);
     if (data.book) formData.append("book", data.book[0]);
