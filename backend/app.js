@@ -43,3 +43,5 @@ app.use(errorHandler);
 app.listen(3090, () => {
   console.log("Listening on port 3090");
 });
+
+export default app;
