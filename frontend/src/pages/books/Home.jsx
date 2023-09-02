@@ -6,7 +6,7 @@ export const Home = () => {
   return (
     <div className="h-screen flex flex-col">
       <NavBar />
-      <div className="m:px-20 flex flex-col items-center m-auto">
+      <section className="m:px-20 flex flex-col items-center m-auto">
         <h1 className="text-6xl s:text-8xl text-center font-black mb-10">
           Let's <span className="text-gradient text-6xl s:text-8xl">Read</span>{" "}
           Together
@@ -25,7 +25,7 @@ export const Home = () => {
           </span>
         </Link>
         <div className="my-6 py-7"></div>
-      </div>
+      </section>
       <NavBottom />
     </div>
   );

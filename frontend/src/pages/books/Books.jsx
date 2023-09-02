@@ -30,7 +30,7 @@ export const Books = () => {
       {getBooksStatus === "pending" ? (
         <Spinner />
       ) : (
-        <div className="pt-[8%] xl:px-80 xs:px-10 s:px-24 grid xs:grid-cols-1 l:grid-cols-4 m:grid-cols-3 s:grid-cols-2  grid-flow-dense gap-12 my-10">
+        <section className="pt-[8%] xl:px-80 xs:px-10 s:px-24 grid xs:grid-cols-1 l:grid-cols-4 m:grid-cols-3 s:grid-cols-2  grid-flow-dense gap-12 my-10">
           {books.map((book, index) => (
             <div
               key={index}
@@ -69,7 +69,7 @@ export const Books = () => {
               )}
             </div>
           ))}
-        </div>
+        </section>
       )}
 
       <NavBottom />

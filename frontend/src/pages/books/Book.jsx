@@ -41,7 +41,7 @@ export const Book = () => {
   return (
     <>
       <NavBar position="fixed top-0" />
-      <div className="xl:px-80 xs:px-10 s:px-24 flex flex-col m:flex-row m:justify-stretch items-start py-[12%]">
+      <section className="xl:px-80 xs:px-10 s:px-24 flex flex-col m:flex-row m:justify-stretch items-start py-[12%]">
         <div className="m:basis-1/2 w-[100%] m:max-w-[50%] mb-5 flex-col m:mr-7 items-start justify-center m:min-h-[10rem]  border-black border-2 rounded-3xl form py-2">
           <h2 className="text-2xl font-bold px-7 py-2">{selectedBook.title}</h2>
           <p className="text-lg px-7 pb-2 text-clip">
@@ -74,7 +74,7 @@ export const Book = () => {
           </div>
         </div>
         <ViewFile className="m:basis-1/2" filePath={selectedBook.pdfURL} />
-      </div>
+      </section>
       <NavBottom />
     </>
   );

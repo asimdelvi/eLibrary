@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export function NavBottom({ position = "fixed bottom-0" }) {
   return (
-    <div
+    <nav
       className={`visible m:hidden py-1 px-3 rounded-none flex items-center w-screen justify-between nav-background nav-bar-bottom nav-bar ${position}`}
     >
       <NavLink to="/">
@@ -20,6 +20,6 @@ export function NavBottom({ position = "fixed bottom-0" }) {
           NEW BOOK
         </div>
       </NavLink>
-    </div>
+    </nav>
   );
 }

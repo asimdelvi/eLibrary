@@ -11,24 +11,13 @@ import { Provider } from "react-redux";
 // Router
 import { BrowserRouter } from "react-router-dom";
 
-// React icons context api
-import { IconContext } from "react-icons";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <IconContext.Provider
-          value={{
-            style: { display: "inline" },
-            size: "1em",
-            color: "white",
-          }}
-        >
-          <App />
-        </IconContext.Provider>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
