@@ -1,3 +1,5 @@
+import React from "react";
+
 export const Spinner = () => {
   return (
     <div className="h-screen flex flex-col">

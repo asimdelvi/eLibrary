@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import booksAPI from "../api/books";
+import type { RootState } from "../App/store";
+import type { Book, BookState } from "../../types";
 
-const initialState = {
+const initialState: BookState = {
   books: [],
   getBooksStatus: "idle",
   getBookStatus: "idle",
@@ -10,99 +12,88 @@ const initialState = {
   deleteStatus: "idle",
   error: null,
   selectedBook: {
-    _id: 0,
+    _id: "0",
     title: "",
     pdfURL: "",
-    createdBy: { _id: 0, username: "" },
+    publicID: "",
+    createdBy: { _id: "0", username: "" },
   },
 };
 
-export const getBooks = createAsyncThunk("books/getAll", async (thunkAPI) => {
-  try {
-    return await booksAPI.getAll();
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const getBooks = createAsyncThunk(
+  "books/getAll",
+  async (_, thunkAPI) => {
+    try {
+      return await booksAPI.getAll();
+    } catch (error: any) {
+      const message: string =
+        error?.response?.data?.message || error?.message || error?.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
-export const getBook = createAsyncThunk(
+export const getBook = createAsyncThunk<Book, string>(
   "books/getOne",
   async (id, thunkAPI) => {
     try {
       return await booksAPI.get(id);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+    } catch (error: any) {
+      const message: string =
+        error?.response?.data?.message || error?.message || error?.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-export const createBook = createAsyncThunk(
-  "books/create",
-  async (data, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await booksAPI.create(data, token);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
+export const createBook = createAsyncThunk<
+  Book,
+  FormData,
+  { state: RootState }
+>("books/create", async (data, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth?.user?.token;
+    return await booksAPI.create(data, token as string);
+  } catch (error: any) {
+    const message: string =
+      error?.response?.data?.message || error?.message || error?.toString();
+    return thunkAPI.rejectWithValue(message);
   }
-);
+});
 
-export const deleteBook = createAsyncThunk(
+export const deleteBook = createAsyncThunk<Book, string, { state: RootState }>(
   "books/delete",
-  async (id, thunkAPI) => {
+  async (_id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await booksAPI.remove(id, token);
-    } catch (error) {
+      const token = thunkAPI?.getState().auth?.user?.token;
+      return await booksAPI.remove(_id, token as string);
+    } catch (error: any) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+        error?.response?.data?.message || error?.message || error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-export const updateBook = createAsyncThunk(
-  "books/update",
-  async (info, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await booksAPI.update(info.id, info.formData, token);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
+export const updateBook = createAsyncThunk<
+  Book,
+  { id: string; formData: FormData },
+  { state: RootState }
+>("books/update", async (info, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth?.user?.token;
+    return await booksAPI.update(info.id, info.formData, token as string);
+  } catch (error: any) {
+    const message =
+      error?.response?.data?.message || error?.message || error?.toString();
+    return thunkAPI.rejectWithValue(message);
   }
-);
+});
 
 export const bookSlice = createSlice({
   name: "books",
   initialState,
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(getBooks.pending, (state, action) => {
@@ -115,7 +106,7 @@ export const bookSlice = createSlice({
       })
       .addCase(getBooks.rejected, (state, action) => {
         state.getBooksStatus = "rejected";
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       .addCase(getBook.pending, (state, action) => {
         state.getBookStatus = "pending";
@@ -127,7 +118,7 @@ export const bookSlice = createSlice({
       })
       .addCase(getBook.rejected, (state, action) => {
         state.getBookStatus = "rejected";
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       .addCase(createBook.pending, (state, action) => {
         state.createStatus = "pending";
@@ -139,21 +130,19 @@ export const bookSlice = createSlice({
       })
       .addCase(createBook.rejected, (state, action) => {
         state.createStatus = "rejected";
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       .addCase(deleteBook.pending, (state, action) => {
         state.deleteStatus = "pending";
       })
       .addCase(deleteBook.fulfilled, (state, action) => {
-        state.deleteStatus = state.books.filter(
-          (book) => book.id !== action.payload.id
-        );
+        state.books.filter((book) => book._id !== action.payload._id);
         state.deleteStatus = "fulfilled";
         state.error = null;
       })
       .addCase(deleteBook.rejected, (state, action) => {
         state.deleteStatus = "rejected";
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       .addCase(updateBook.pending, (state, action) => {
         state.updateStatus = "pending";
@@ -165,7 +154,7 @@ export const bookSlice = createSlice({
       })
       .addCase(updateBook.rejected, (state, action) => {
         state.updateStatus = "rejected";
-        state.error = action.payload;
+        state.error = action.payload as string;
       });
   },
 });

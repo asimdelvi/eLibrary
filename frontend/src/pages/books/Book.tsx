@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 import { deleteBook, getBook } from "../../redux/features/bookSlice";
 import { ViewFile } from "../../components/ViewFile";
-import { notify } from "../../toastify/index.js";
+import { notify } from "../../toastify";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/Button.jsx";
+import { Button } from "../../components/Button";
 import { NavBar } from "../../components/NavBar";
 import { NavBottom } from "../../components/NavBottom";
 
 export const Book = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const { user } = useSelector((state) => state.auth);
-  const { selectedBook, deleteStatus, error } = useSelector(
+  const { user } = useAppSelector((state) => state.auth);
+  const { selectedBook, deleteStatus, error } = useAppSelector(
     (state) => state.books
   );
 
@@ -23,7 +23,7 @@ export const Book = () => {
     if (id) dispatch(getBook(id));
   }, [dispatch, id]);
 
-  const deleteHandler = async (bookId) => {
+  const deleteHandler = async (bookId: string) => {
     notify.loading();
     await dispatch(deleteBook(bookId));
     navigate(-1);
@@ -73,7 +73,9 @@ export const Book = () => {
             )}
           </div>
         </div>
-        <ViewFile className="m:basis-1/2" filePath={selectedBook.pdfURL} />
+        <div className="m:basis-1/2">
+          <ViewFile filePath={selectedBook.pdfURL} />
+        </div>
       </section>
       <NavBottom />
     </>

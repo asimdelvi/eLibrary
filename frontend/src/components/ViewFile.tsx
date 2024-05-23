@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
+import React, { useState, useEffect } from "react";
+// import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
+import { Document, Page, pdfjs } from "react-pdf";
+import type { ViewFileProps } from "../types";
 
-export const ViewFile = ({ filePath }) => {
-  const [numPages, setNumPages] = useState(null);
+export const ViewFile: React.FC<ViewFileProps> = ({ filePath }) => {
+  const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
 
-  function onDocumentLoadSuccess({ numPages }) {
+  useEffect(() => {
+    pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+  });
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
   }
 

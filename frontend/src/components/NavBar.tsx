@@ -1,6 +1,8 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
+import type { NavBarProps } from "../types";
 
-export function NavBar({ position = "static" }) {
+export const NavBar: React.FC<NavBarProps> = ({ position = "static" }) => {
   return (
     <nav
       className={`px-5 py-2 m:px-20 xl:px-80 m:py-5 flex items-center justify-between nav-background z-20 border-0 rounded-none w-screen ${position}`}
@@ -39,4 +41,4 @@ export function NavBar({ position = "static" }) {
       </div>
     </nav>
   );
-}
+};

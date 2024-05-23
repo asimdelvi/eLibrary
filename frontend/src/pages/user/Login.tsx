@@ -1,35 +1,36 @@
 import React, { useEffect } from "react";
 import { login } from "../../redux/features/authSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { notify } from "../../toastify/index.js";
-import { Input } from "../../components/Input.jsx";
-import { Button } from "../../components/Button.jsx";
-import { Form } from "../../components/Form.jsx";
+import { notify } from "../../toastify/index";
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
+import { Form } from "../../components/Form";
 import { NavBar } from "../../components/NavBar";
 import { NavBottom } from "../../components/NavBottom";
+import type { LoginInput } from "../../types";
 
 export const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { isSubmitSuccessful, errors },
-  } = useForm({
+  } = useForm<LoginInput>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const { status, error } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const { status, error } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
   // When the user clicks the submit button, login api will be called
   // toastify loading will start
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<LoginInput> = (data) => {
     dispatch(login(data));
     notify.loading();
   };
@@ -54,13 +55,13 @@ export const Login = () => {
             type="email"
             formFunction={register("email", { required: true })}
             placeholder="email"
-            errors={errors.email}
+            errors={errors?.email}
           />
           <Input
             type="password"
             placeholder="password"
             formFunction={register("password", { required: true })}
-            errors={errors.password}
+            errors={errors?.password}
           />
           <Button text="LOGIN" variant="primary" />
         </Form>

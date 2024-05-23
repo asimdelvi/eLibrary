@@ -9,12 +9,12 @@ const getAll = async () => {
   return res.data;
 };
 
-const get = async (id) => {
+const get = async (id: string) => {
   const res = await axios.get(`${BASE_URL}/books/${id}`);
   return res.data;
 };
 
-const create = async (data, token) => {
+const create = async (data: FormData, token: string) => {
   const config = {
     headers: {
       Authorization: token,
@@ -24,17 +24,17 @@ const create = async (data, token) => {
   return res.data;
 };
 
-const remove = async (id, token) => {
+const remove = async (_id: string, token: string) => {
   const config = {
     headers: {
       Authorization: token,
     },
   };
-  const res = await axios.delete(`${BASE_URL}/books/${id}`, config);
+  const res = await axios.delete(`${BASE_URL}/books/${_id}`, config);
   return res.data;
 };
 
-const update = async (id, data, token) => {
+const update = async (id: string, data: FormData, token: string) => {
   const config = {
     headers: {
       Authorization: token,
