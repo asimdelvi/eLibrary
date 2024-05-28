@@ -8,4 +8,4 @@ RUN npm install
 FROM base AS development
 COPY . .
 EXPOSE 3090
-CMD ['nodemon', 'app.js']
+CMD ["nodemon", "app.js"]
