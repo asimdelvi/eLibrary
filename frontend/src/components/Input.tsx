@@ -1,4 +1,12 @@
-export const Input = ({ type, placeholder, formFunction, errors }) => {
+import React from "react";
+import type { InputProps } from "../types";
+
+export const Input: React.FC<InputProps> = ({
+  type,
+  placeholder,
+  formFunction,
+  errors,
+}) => {
   const inputBaseClass =
     "w-full p-2 m-2 text-lg border-2 border-black rounded-lg focus:outline-none focus:border-[2px] focus:border-solid";
   const fileInputBaseClass =

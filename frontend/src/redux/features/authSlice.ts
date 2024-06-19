@@ -1,44 +1,37 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authAPI from "../api/auth";
+import type { AuthState, LoginInput, RegisterInput, User } from "../../types";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user") || "null");
 
-const initialState = {
+const initialState: AuthState = {
   // when reloading user value will null, so grabbing it from localStorage.
   user: user ? user : null,
   status: "idle",
   error: null,
 };
 
-export const register = createAsyncThunk(
+export const register = createAsyncThunk<User, RegisterInput>(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
       return await authAPI.register(userData);
-    } catch (error) {
+    } catch (error: any) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+        error?.response?.data?.message || error?.message || error?.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-export const login = createAsyncThunk(
+export const login = createAsyncThunk<User, LoginInput>(
   "auth/login",
   async (userData, thunkAPI) => {
     try {
       return await authAPI.login(userData);
-    } catch (error) {
+    } catch (error: any) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+        error?.response?.data?.message || error?.message || error?.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -47,6 +40,7 @@ export const login = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(register.pending, (state, action) => {
@@ -59,7 +53,7 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       .addCase(login.pending, (state, action) => {
         state.status = "pending";
@@ -71,7 +65,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.payload;
+        state.error = action.payload as string;
       });
   },
 });

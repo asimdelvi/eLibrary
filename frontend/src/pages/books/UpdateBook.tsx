@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { updateBook } from "../../redux/features/bookSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import { getBook } from "../../redux/features/bookSlice";
-import { useForm } from "react-hook-form";
-import { notify } from "../../toastify/index.js";
-import { Input } from "../../components/Input.jsx";
-import { Form } from "../../components/Form.jsx";
-import { Button } from "../../components/Button.jsx";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { notify } from "../../toastify/index";
+import { Input } from "../../components/Input";
+import { Form } from "../../components/Form";
+import { Button } from "../../components/Button";
 import { NavBar } from "../../components/NavBar";
 import { NavBottom } from "../../components/NavBottom";
+import type { BookInput } from "../../types";
 
 export const UpdateBook = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { selectedBook, updateStatus, error } = useSelector(
+  const { id = "" } = useParams<string>();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
+  const { selectedBook, updateStatus, error } = useAppSelector(
     (state) => state.books
   );
 
@@ -29,15 +30,14 @@ export const UpdateBook = () => {
     register,
     handleSubmit,
     formState: { isSubmitSuccessful },
-  } = useForm({
+  } = useForm<BookInput>({
     defaultValues: {
       title: selectedBook.title,
       description: selectedBook.description || "",
-      book: null,
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<BookInput> = (data) => {
     let formData = new FormData();
     if (data.title) formData.append("title", data.title);
     if (data.book) formData.append("book", data.book[0]);

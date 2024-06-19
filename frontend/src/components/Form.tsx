@@ -1,4 +1,11 @@
-export const Form = ({ title, formSubmitFunction, children }) => {
+import React from "react";
+import type { FormProps } from "../types";
+
+export const Form: React.FC<FormProps> = ({
+  title,
+  formSubmitFunction,
+  children,
+}) => {
   return (
     <form
       onSubmit={formSubmitFunction}

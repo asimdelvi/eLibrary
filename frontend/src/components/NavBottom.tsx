@@ -1,6 +1,10 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
+import type { NavBarProps } from "../types";
 
-export function NavBottom({ position = "fixed bottom-0" }) {
+export const NavBottom: React.FC<NavBarProps> = ({
+  position = "fixed bottom-0",
+}) => {
   return (
     <nav
       className={`visible m:hidden py-1 px-3 rounded-none flex items-center w-screen justify-between nav-background nav-bar-bottom nav-bar ${position}`}
@@ -22,4 +26,4 @@ export function NavBottom({ position = "fixed bottom-0" }) {
       </NavLink>
     </nav>
   );
-}
+};

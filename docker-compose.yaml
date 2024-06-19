@@ -1,0 +1,37 @@
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27027:27027"
+    volumes:
+      - eLibVolume:/data/db
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3090:3090"
+    environment:
+      - DB_URL=mongodb://mongo:27017/Library
+    develop:
+      watch:
+        - action: sync
+          path: ./backend
+          target: /usr/src/app
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BASE_URL_LOCAL=http://localhost:3090/api
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /usr/src/app
+volumes:
+  eLibVolume:

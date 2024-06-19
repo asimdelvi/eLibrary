@@ -1,22 +1,24 @@
 import React, { useEffect } from "react";
 import { register as formRegister } from "../../redux/features/authSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+// import { useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { notify } from "../../toastify/index.js";
-import { Input } from "../../components/Input.jsx";
-import { Form } from "../../components/Form.jsx";
-import { Button } from "../../components/Button.jsx";
+import { notify } from "../../toastify/index";
+import { Input } from "../../components/Input";
+import { Form } from "../../components/Form";
+import { Button } from "../../components/Button";
 import { NavBar } from "../../components/NavBar";
 import { NavBottom } from "../../components/NavBottom";
+import type { RegisterInput } from "../../types";
 
 export const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { isSubmitSuccessful, errors },
-  } = useForm({
+  } = useForm<RegisterInput>({
     defaultValues: {
       username: "",
       email: "",
@@ -24,12 +26,12 @@ export const Register = () => {
     },
   });
 
-  const { status, error } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const { status, error } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<RegisterInput> = (data) => {
     dispatch(formRegister(data));
     notify.loading();
   };

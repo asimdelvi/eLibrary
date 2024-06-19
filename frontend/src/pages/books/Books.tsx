@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 import { getBooks } from "../../redux/features/bookSlice";
 import { Link } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
@@ -13,15 +13,15 @@ export const Books = () => {
   const expandCard =
     "items-center justify-between s:col-span-2 xs:col-auto xs:row-span-4 s:row-auto";
 
-  const dispatch = useDispatch();
-  const { books, getBooksStatus } = useSelector((state) => state.books);
-  const [clickedIndex, setClickedIndex] = useState();
+  const dispatch = useAppDispatch();
+  const { books, getBooksStatus } = useAppSelector((state) => state.books);
+  const [clickedIndex, setClickedIndex] = useState<number | null>();
 
   useEffect(() => {
     dispatch(getBooks());
   }, [dispatch]);
 
-  const handleClick = (index) => {
+  const handleClick = (index: number) => {
     setClickedIndex(index);
   };
 
