@@ -1,9 +1,11 @@
 # eLibrary
 
-## A book sharing responsive web application
+## A book-sharing responsive web application
 https://eliberary.netlify.app/
 
-https://github.com/asimdelvi/eLibrary/assets/53201783/05a9abca-273f-4707-b4b3-f0e9ea6dbbf9
+https://github.com/asimdelvi/eLibrary/assets/53201783/3ed4937a-0280-4f90-9a0b-25fb12f9e4a8
+
+<img src="https://github.com/asimdelvi/eLibrary/assets/53201783/0da67e0d-1390-4bcf-aeea-fb66d29e14d9" width=500 height=320 />
 
 ## Tools and technologies used:
 - Frontend: React, Redux, TailwindCSS, Toastify, ReactPDF, Axios
