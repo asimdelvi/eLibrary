@@ -12,7 +12,7 @@ https://github.com/asimdelvi/eLibrary/assets/53201783/05a9abca-273f-4707-b4b3-f0
 
 ## Installation and Setup
 ### Docker (super easy)
-
+- Download or clone the repository
 ```
 docker compose watch
 ```
